@@ -1,3 +1,14 @@
+<div align="center">
+
+[![Version](https://img.shields.io/badge/version-v0.1.0-5C6BC0?style=flat-square&logo=git&logoColor=white)](https://github.com/Garvit2916/DoonRoute/releases)
+[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![C++ Standard](https://img.shields.io/badge/C%2B%2B-17-00599C?style=flat-square&logo=cplusplus&logoColor=white)](cpp/dijkstra.hpp)
+[![License: MIT](https://img.shields.io/badge/license-MIT-22C55E?style=flat-square)](LICENSE)
+[![Tests](https://img.shields.io/badge/tests-14%20passing-16A34A?style=flat-square&logo=pytest&logoColor=white)](tests/)
+[![Speedup](https://img.shields.io/badge/C%2B%2B%20speedup-12.22%C3%97-F97316?style=flat-square)](results/benchmark_results.csv)
+
+</div>
+
 # DoonRoute: Shortest-Distance Waypoint Routing & CPython vs. Native C++ Dijkstra Engine
 
 DoonRoute is an academic and engineering project providing a reproducible, shortest-distance road routing engine built upon the real OpenStreetMap (OSM) highway network of Dehradun, Uttarakhand, India. The project computes the exact shortest path through a sequence of mandatory urban waypoints, quantifies the detour penalty relative to unconstrained routing, and evaluates algorithm performance between a pure Python heap implementation running on CPython and a native C++17 engine linked via Cython (with NetworkX retained strictly as an independent correctness validator in tests).
