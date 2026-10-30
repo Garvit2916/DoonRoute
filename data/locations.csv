@@ -1,0 +1,6 @@
+id,name,role,latitude,longitude,source_url,retrieved_date,notes
+A,Zenith Youth Hostel (Bidholi),start,30.4092544,77.9692954,https://maps.app.goo.gl/Krw7pUkKsMoPcNhB6,2026-10-30,Official India HCI 2023 accommodation link; alternative listing 30.408238/77.966582 is ~284 m away
+B,Paltan Bazaar,shopping,30.320501,78.037545,https://exa.ai/library/place/7q4pfh038mf,2026-10-30,Market-area access point; OSM Paltan Bazar way centroid is ~89 m away
+C,Ghanta Ghar,landmark,30.3243249,78.0418653,https://www.openstreetmap.org/way/1556686564,2026-10-30,OSM Nominatim result for Ghanta Ghar on Rajpur Road
+D,Centrio Mall,destination,30.3433787,78.0479563,https://www.openstreetmap.org/node/12119801701,2026-10-30,Centrio/Unison complex on New Cantt Road
+E,Timezone Bowling,activity,30.343296,78.047733,https://www.timezonegames.com/en-in/party-booking/north/unison-mall/,2026-10-30,Inside Centrio/Unison Mall; no separate road leg from D

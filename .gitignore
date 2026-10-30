@@ -1,0 +1,41 @@
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Build artifacts & extensions
+build/
+dist/
+*.egg-info/
+*.pyd
+*.obj
+*.lib
+*.exp
+*.dll
+*.so
+*.dylib
+
+# Generated Cython C/C++ intermediates
+src/cython_dijkstra.c
+src/cython_dijkstra.cpp
+
+# Generated data caches and binary graphs
+data/cache/
+data/processed/*.bin
+
+# Temporary outputs and logs
+outputs/*.html
+*.log
+.streamlit/
+
+# Secrets and local configurations
+.env
+*.pem
+*.key
