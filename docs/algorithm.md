@@ -26,19 +26,14 @@ Parallel edges are retained during loading and handled by selecting the shortest
 
 ## Dijkstra implementations
 
-### Python
+### 1. Pure Python (CPython)
+The pure Python implementation (`src/python_dijkstra.py`) uses a binary heap (`heapq`), stale-entry handling, settled-node tracking, visited and relaxation counters, predecessor-based path reconstruction, negative-weight validation, unreachable-target handling, and source-equals-destination handling.
 
-The pure Python implementation uses a binary heap, stale-entry handling, settled-node tracking, visited and relaxation counters, predecessor-based path reconstruction, negative-weight validation, unreachable-target handling, and source-equals-destination handling.
+### 2. Native C++17 (via Cython)
+The native C++ implementation (`cpp/dijkstra.cpp`, `src/cython_dijkstra.pyx`) uses `std::priority_queue` over a flat indexed adjacency representation, compiling to a native extension for sub-millisecond execution.
 
-### C++
-
-The C++ implementation uses indexed adjacency lists and a C-compatible A/B benchmark API.
-
-### NetworkX
-
-The independent reference implementation uses networkx.single_source_dijkstra.
-
-All implementations use the same graph, edge weights, and mandatory-stop sequence.
+### 3. Optional Independent Correctness Reference (NetworkX)
+NetworkX (`networkx.single_source_dijkstra`) is retained solely as an independent reference solver to verify path correctness, distances, and topology in automated tests. It is not a competing implementation in the primary performance benchmarks.
 
 ## Mandatory-route composition
 

@@ -115,27 +115,42 @@ def plot_route_comparison(
     unconstrained: float,
     output: Path,
 ) -> None:
-    labels = ["A to B", "B to C", "C to D", "Mandatory total", "Unconstrained A to D"]
-    values = [
-        value / 1000 for value in [*leg_distances, mandatory_total, unconstrained]
+    detour = mandatory_total - unconstrained
+    detour_pct = (detour / unconstrained) * 100
+    labels = [
+        "A to B",
+        "B to C",
+        "C to D",
+        "Mandatory total",
+        "Unconstrained A to D",
+        f"Detour\n(+{detour_pct:.1f}%)",
     ]
-    colors = ["#4c78a8", "#4c78a8", "#4c78a8", "#2e7d32", "#b26a00"]
-    figure, axis = plt.subplots(figsize=(9, 4.8))
-    bars = axis.bar(labels, values, color=colors, width=0.65)
+    values = [
+        value / 1000
+        for value in [*leg_distances, mandatory_total, unconstrained, detour]
+    ]
+    colors = ["#4c78a8", "#4c78a8", "#4c78a8", "#2e7d32", "#1f77b4", "#d95f02"]
+    figure, axis = plt.subplots(figsize=(10, 5.2))
+    bars = axis.bar(labels, values, color=colors, width=0.62)
     for bar, value in zip(bars, values, strict=True):
         axis.text(
             bar.get_x() + bar.get_width() / 2,
-            value + 0.25,
+            value + 0.35,
             f"{value:.3f} km",
             ha="center",
             va="bottom",
             fontsize=9,
+            fontweight="medium",
         )
-    axis.set_ylabel("Road distance (km)")
-    axis.set_title("DoonRoute distance comparison")
+    axis.set_ylabel("Road distance (km)", fontsize=10)
+    axis.set_title(
+        "DoonRoute Road Distance & Mandatory Detour Comparison",
+        fontsize=11,
+        fontweight="bold",
+    )
     axis.set_ylim(0, max(values) * 1.18)
     axis.spines[["top", "right"]].set_visible(False)
-    axis.grid(axis="y", alpha=0.2)
+    axis.grid(axis="y", linestyle="--", alpha=0.3)
     figure.tight_layout()
     figure.savefig(output, dpi=160)
     plt.close(figure)

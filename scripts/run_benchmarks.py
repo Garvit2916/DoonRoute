@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import tempfile
 from pathlib import Path
@@ -32,8 +33,9 @@ RESULTS = ROOT / "results"
 BINARY_GRAPH = PROCESSED / "graph.bin"
 REPETITIONS = 10
 WARMUPS = 3
-IMPLEMENTATIONS = ["python", "cpp", "networkx"]
-COLORS = {"python": "#4c78a8", "cpp": "#2e7d32", "networkx": "#b26a00"}
+IMPLEMENTATIONS = ["python", "cpp"]
+COLORS = {"python": "#4c78a8", "cpp": "#2e7d32"}
+IMPL_LABELS = {"python": "CPython (heapq)", "cpp": "Native C++17 (Cython)"}
 LEG_LABELS = {"A-B": "A to B", "B-C": "B to C", "C-D": "C to D"}
 
 
@@ -157,9 +159,9 @@ def add_overall_rows(
 
 
 def plot_execution_time(rows: list[dict[str, Any]], output: Path) -> None:
-    figure, axis = plt.subplots(figsize=(10, 5.4))
+    figure, axis = plt.subplots(figsize=(8.5, 5.0))
     positions = np.arange(len(LEG_LABELS))
-    width = 0.24
+    width = 0.32
     for index, implementation in enumerate(IMPLEMENTATIONS):
         values = [
             float(
@@ -174,28 +176,40 @@ def plot_execution_time(rows: list[dict[str, Any]], output: Path) -> None:
             for case in LEG_LABELS
         ]
         bars = axis.bar(
-            positions + (index - 1) * width,
+            positions + (index - 0.5) * width,
             values,
             width,
-            label=implementation.upper() if implementation == "cpp" else implementation,
+            label=IMPL_LABELS[implementation],
             color=COLORS[implementation],
         )
         for bar, value in zip(bars, values, strict=True):
             axis.text(
                 bar.get_x() + bar.get_width() / 2,
-                value * 1.12,
-                f"{value:.3f}",
+                value * 1.30,
+                f"{value:.3f} ms",
                 ha="center",
                 va="bottom",
-                fontsize=7,
-                rotation=90,
+                fontsize=8.5,
+                fontweight="medium",
             )
     axis.set_yscale("log")
     axis.set_xticks(positions, list(LEG_LABELS.values()))
-    axis.set_ylabel("Median execution time (ms, log scale)")
-    axis.set_title("Execution time for the three real road legs")
-    axis.legend(frameon=False)
-    axis.grid(axis="y", which="both", alpha=0.2)
+    axis.set_ylabel("Median execution time (ms, log scale)", fontsize=10)
+    axis.set_title(
+        "Execution Time Comparison: CPython vs. Native C++17",
+        fontsize=11,
+        fontweight="bold",
+    )
+    real_medians = [
+        float(item["median_ms"])
+        for item in rows
+        if item["benchmark_type"] == "real"
+        and item["implementation"] in IMPLEMENTATIONS
+    ]
+    axis.set_ylim(bottom=min(real_medians) * 0.35, top=max(real_medians) * 4.5)
+    axis.legend(frameon=True, facecolor="white", edgecolor="#cccccc", fontsize=9)
+    axis.grid(axis="y", which="both", linestyle="--", alpha=0.3)
+    axis.spines[["top", "right"]].set_visible(False)
     figure.tight_layout()
     figure.savefig(output, dpi=160)
     plt.close(figure)
@@ -208,27 +222,58 @@ def plot_overall(rows: list[dict[str, Any]], output: Path) -> None:
         if item["benchmark_type"] == "real" and item["case"] == "overall"
     }
     values = [overall[name] for name in IMPLEMENTATIONS]
-    labels = [name.upper() if name == "cpp" else name for name in IMPLEMENTATIONS]
-    figure, axis = plt.subplots(figsize=(7.5, 4.8))
+    labels = [IMPL_LABELS[name] for name in IMPLEMENTATIONS]
+    figure, axis = plt.subplots(figsize=(7.0, 4.8))
     bars = axis.bar(
         labels,
         values,
         color=[COLORS[name] for name in IMPLEMENTATIONS],
-        width=0.55,
+        width=0.48,
     )
     for bar, value in zip(bars, values, strict=True):
         axis.text(
             bar.get_x() + bar.get_width() / 2,
-            value * 1.12,
+            value * 1.30,
             f"{value:.3f} ms",
             ha="center",
             va="bottom",
-            fontsize=9,
+            fontsize=9.5,
+            fontweight="medium",
         )
+    speedup = float(
+        next(
+            item["speedup_vs_python"]
+            for item in rows
+            if item["benchmark_type"] == "real"
+            and item["case"] == "overall"
+            and item["implementation"] == "cpp"
+        )
+    )
+    axis.text(
+        0.5,
+        0.88,
+        f"Native C++ Speedup: {speedup:.2f}×",
+        transform=axis.transAxes,
+        ha="center",
+        fontsize=10,
+        fontweight="bold",
+        bbox={
+            "boxstyle": "round,pad=0.4",
+            "facecolor": "#e8f5e9",
+            "edgecolor": "#2e7d32",
+            "alpha": 0.9,
+        },
+    )
     axis.set_yscale("log")
-    axis.set_ylabel("Sum of leg medians (ms, log scale)")
-    axis.set_title("Overall benchmark: mandatory route")
-    axis.grid(axis="y", which="both", alpha=0.2)
+    axis.set_ylabel("Sum of leg medians (ms, log scale)", fontsize=10)
+    axis.set_title(
+        "Overall Mandatory Route Benchmark (Sum of Leg Medians)",
+        fontsize=11,
+        fontweight="bold",
+    )
+    axis.set_ylim(bottom=min(values) * 0.35, top=max(values) * 4.5)
+    axis.grid(axis="y", which="both", linestyle="--", alpha=0.3)
+    axis.spines[["top", "right"]].set_visible(False)
     figure.tight_layout()
     figure.savefig(output, dpi=160)
     plt.close(figure)
@@ -237,56 +282,69 @@ def plot_overall(rows: list[dict[str, Any]], output: Path) -> None:
 def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
     cases = [*LEG_LABELS, "overall"]
     labels = [*LEG_LABELS.values(), "Overall"]
-    figure, axis = plt.subplots(figsize=(9, 5.0))
+    figure, axis = plt.subplots(figsize=(8.0, 4.8))
     positions = np.arange(len(cases))
-    width = 0.32
-    for index, implementation in enumerate(["cpp", "networkx"]):
-        values = [
-            float(
-                next(
-                    item["speedup_vs_python"]
-                    for item in rows
-                    if item["benchmark_type"] == "real"
-                    and item["case"] == case
-                    and item["implementation"] == implementation
-                )
+    width = 0.50
+    values = [
+        float(
+            next(
+                item["speedup_vs_python"]
+                for item in rows
+                if item["benchmark_type"] == "real"
+                and item["case"] == case
+                and item["implementation"] == "cpp"
             )
-            for case in cases
-        ]
-        bars = axis.bar(
-            positions + (index - 0.5) * width,
-            values,
-            width,
-            label=(
-                f"{implementation.upper()} vs Python"
-                if implementation == "cpp"
-                else "NetworkX vs Python"
-            ),
-            color=COLORS[implementation],
         )
-        for bar, value in zip(bars, values, strict=True):
-            axis.text(
-                bar.get_x() + bar.get_width() / 2,
-                value * 1.08,
-                f"{value:.2f}x",
-                ha="center",
-                va="bottom",
-                fontsize=8,
-            )
-    axis.set_yscale("log")
+        for case in cases
+    ]
+    bars = axis.bar(
+        positions,
+        values,
+        width,
+        label="Native C++ vs. CPython",
+        color="#2e7d32",
+    )
+    for bar, value in zip(bars, values, strict=True):
+        axis.text(
+            bar.get_x() + bar.get_width() / 2,
+            value + 0.35,
+            f"{value:.2f}×",
+            ha="center",
+            va="bottom",
+            fontsize=9.5,
+            fontweight="medium",
+        )
     axis.set_xticks(positions, labels)
-    axis.set_ylabel("Speedup relative to Python (log scale)")
-    axis.set_title("Measured speedup: Python median / implementation median")
-    axis.legend(frameon=False)
-    axis.grid(axis="y", which="both", alpha=0.2)
+    axis.set_ylabel("Speedup relative to CPython (×)", fontsize=10)
+    axis.set_title(
+        "Native C++ Speedup vs. CPython (Ratio of Medians)",
+        fontsize=11,
+        fontweight="bold",
+    )
+    axis.set_ylim(0, max(values) * 1.18)
+    axis.axhline(
+        1.0,
+        color="#888888",
+        linestyle=":",
+        linewidth=1,
+        label="CPython Baseline (1.0×)",
+    )
+    axis.legend(frameon=True, facecolor="white", edgecolor="#cccccc", fontsize=9)
+    axis.grid(axis="y", linestyle="--", alpha=0.3)
+    axis.spines[["top", "right"]].set_visible(False)
     figure.tight_layout()
     figure.savefig(output, dpi=160)
     plt.close(figure)
 
 
 def plot_synthetic(rows: list[dict[str, Any]], output: Path) -> None:
-    figure, axis = plt.subplots(figsize=(8.5, 5.2))
-    synthetic = [item for item in rows if item["benchmark_type"] == "synthetic"]
+    figure, axis = plt.subplots(figsize=(8.5, 5.0))
+    synthetic = [
+        item
+        for item in rows
+        if item["benchmark_type"] == "synthetic"
+        and not item["case"].endswith("(end-to-end)")
+    ]
     for implementation in IMPLEMENTATIONS:
         series = sorted(
             (item for item in synthetic if item["implementation"] == implementation),
@@ -296,25 +354,61 @@ def plot_synthetic(rows: list[dict[str, Any]], output: Path) -> None:
             [int(item["graph_nodes"]) for item in series],
             [float(item["median_ms"]) for item in series],
             marker="o",
+            markersize=6,
             linewidth=2,
-            label=implementation.upper() if implementation == "cpp" else implementation,
+            label=IMPL_LABELS[implementation],
             color=COLORS[implementation],
         )
     axis.set_xscale("log")
     axis.set_yscale("log")
-    axis.set_xlabel("Synthetic graph nodes (log scale)")
-    axis.set_ylabel("Median execution time (ms, log scale)")
-    axis.set_title("Synthetic scaling benchmark (separate from real-road results)")
-    axis.legend(frameon=False)
-    axis.grid(which="both", alpha=0.2)
+    axis.set_xlabel("Synthetic graph nodes (V, log scale)", fontsize=10)
+    axis.set_ylabel("Median execution time (ms, log scale)", fontsize=10)
+    axis.set_title(
+        "Synthetic Graph Scaling: CPython vs. Native C++17",
+        fontsize=11,
+        fontweight="bold",
+    )
+    axis.legend(frameon=True, facecolor="white", edgecolor="#cccccc", fontsize=9)
+    axis.grid(which="both", linestyle="--", alpha=0.3)
+    axis.spines[["top", "right"]].set_visible(False)
     figure.tight_layout()
     figure.savefig(output, dpi=160)
     plt.close(figure)
 
 
+def load_results_from_csv(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with path.open("r", encoding="utf-8") as handle:
+        for item in csv.DictReader(handle):
+            rows.append(dict(item))
+    return rows
+
+
 def main() -> None:
     RESULTS.mkdir(parents=True, exist_ok=True)
     PROCESSED.mkdir(parents=True, exist_ok=True)
+
+    parser = argparse.ArgumentParser(
+        description="Run DoonRoute benchmarks or render plots from CSV."
+    )
+    parser.add_argument(
+        "--plot-only",
+        action="store_true",
+        help="Generate plots directly from existing benchmark_results.csv",
+    )
+    args = parser.parse_args()
+
+    if args.plot_only:
+        csv_path = RESULTS / "benchmark_results.csv"
+        if not csv_path.exists():
+            raise FileNotFoundError(f"Missing {csv_path}")
+        rows = load_results_from_csv(csv_path)
+        plot_execution_time(rows, RESULTS / "execution_time.png")
+        plot_overall(rows, RESULTS / "overall_performance.png")
+        plot_speedup(rows, RESULTS / "speedup.png")
+        plot_synthetic(rows, RESULTS / "synthetic_scaling.png")
+        print(f"Generated benchmark plots from {csv_path}")
+        return
 
     print(f"Loading {GRAPH_PATH}")
     graph = load_graph(GRAPH_PATH)
@@ -383,25 +477,10 @@ def main() -> None:
                 )
             )
 
-            timing = measure_call(
-                lambda source_index=source_index, target_index=target_index: (
-                    networkx_solver.shortest_path(source_index, target_index)
-                ),
-                repetitions=REPETITIONS,
-            )
-            rows.append(
-                row(
-                    "real",
-                    label,
-                    "networkx",
-                    graph.node_count,
-                    graph.edge_count,
-                    source_index,
-                    target_index,
-                    timing,
-                    "python_perf_counter",
-                )
-            )
+            # Independent correctness validation against NetworkX reference solver
+            nx_res = networkx_solver.shortest_path(source_index, target_index)
+            if abs(nx_res.distance - timing.result.distance) > 1e-6:
+                raise AssertionError(f"NetworkX reference disagrees on leg {label}")
 
     add_overall_rows(
         rows,
@@ -433,29 +512,32 @@ def main() -> None:
             target = node_count - 1
             edge_count = sum(len(edges) for edges in adjacency.values())
             with CythonDijkstra(binary_path, node_count) as cpp:
-                for implementation, solver in (
-                    ("python", python_solver),
-                    ("networkx", networkx_solver),
-                ):
-                    timing = measure_call(
-                        lambda solver=solver, source=source, target=target: (
-                            solver.shortest_path(source, target)
-                        ),
-                        repetitions=REPETITIONS,
+                timing = measure_call(
+                    lambda solver=python_solver, source=source, target=target: (
+                        solver.shortest_path(source, target)
+                    ),
+                    repetitions=REPETITIONS,
+                )
+                assert (
+                    abs(
+                        networkx_solver.shortest_path(source, target).distance
+                        - timing.result.distance
                     )
-                    rows.append(
-                        row(
-                            "synthetic",
-                            f"n={node_count}",
-                            implementation,
-                            node_count,
-                            edge_count,
-                            source,
-                            target,
-                            timing,
-                            "python_perf_counter",
-                        )
+                    <= 1e-6
+                )
+                rows.append(
+                    row(
+                        "synthetic",
+                        f"n={node_count}",
+                        "python",
+                        node_count,
+                        edge_count,
+                        source,
+                        target,
+                        timing,
+                        "python_perf_counter",
                     )
+                )
                 timing = measure_cpp(cpp, source, target)
                 rows.append(
                     row(

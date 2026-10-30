@@ -17,13 +17,20 @@ The mandatory route is the shortest route satisfying all mandatory stops in orde
 
 ## Benchmark evidence
 
-The benchmark compares Python, C++, and NetworkX on the same real road legs.
+The primary benchmark compares pure Python running on CPython 3.11 with the native C++17 Dijkstra engine (linked via Cython) on the identical road graph.
 
-For each measured case, it records median execution time, minimum execution time, distance, visited nodes where available, and relaxations where available.
+| Route Leg | CPython Median | Native C++ Median | Speedup vs CPython |
+| :--- | :---: | :---: | :---: |
+| A → B (14.354 km) | 6.494 ms | 0.513 ms | **12.65×** |
+| B → C (0.762 km) | 0.117 ms | 0.014 ms | **8.32×** |
+| C → D (2.899 km) | 3.535 ms | 0.303 ms | **11.67×** |
+| **Overall (Sum of Medians)** | **10.146 ms** | **0.831 ms** | **12.22×** |
 
-For the mandatory total, the benchmark records the sum of leg medians.
+*Note: The overall metric is the sum of the three route-leg medians. NetworkX is retained exclusively as an independent correctness reference.*
 
-A separate synthetic scaling benchmark is used when real-road timings are small.
+For each measured case, the harness records median execution time, minimum execution time, distance, visited nodes, and relaxations.
+
+A separate synthetic scaling benchmark evaluates CPython and Native C++ on synthetic random graphs from 1,000 to 25,000 nodes.
 
 Generated benchmark and plot files:
 

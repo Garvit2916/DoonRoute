@@ -1,6 +1,6 @@
 # DoonRoute: Shortest-Distance Waypoint Routing & CPython vs. Native C++ Dijkstra Engine
 
-DoonRoute is an academic and engineering project providing a reproducible, shortest-distance road routing engine built upon the real OpenStreetMap (OSM) highway network of Dehradun, Uttarakhand, India. The project computes the exact shortest path through a sequence of mandatory urban waypoints, quantifies the detour penalty relative to unconstrained routing, and evaluates algorithm performance across a pure Python heap implementation, a native C++17 engine bound via Cython, and an independent NetworkX reference solver.
+DoonRoute is an academic and engineering project providing a reproducible, shortest-distance road routing engine built upon the real OpenStreetMap (OSM) highway network of Dehradun, Uttarakhand, India. The project computes the exact shortest path through a sequence of mandatory urban waypoints, quantifies the detour penalty relative to unconstrained routing, and evaluates algorithm performance between a pure Python heap implementation running on CPython and a native C++17 engine linked via Cython (with NetworkX retained strictly as an independent correctness validator in tests).
 
 ---
 
@@ -12,7 +12,7 @@ Finding optimal routes through fixed waypoints is a fundamental challenge in spa
 - Implementing Dijkstra's algorithm from first principles in pure Python (CPython 3.11).
 - Implementing an optimized, cache-friendly Dijkstra engine in native C++17 linked directly into Python using Cython native extensions.
 - Validating path correctness, node visitation, edge relaxations, and floating-point distances against NetworkX.
-- Benchmarking execution times and scaling behaviors under strict statistical isolation.
+- Benchmarking execution times and scaling behaviors between CPython and Native C++ under strict statistical isolation.
 
 ---
 

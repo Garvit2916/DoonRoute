@@ -1,32 +1,24 @@
 benchmark_type,case,implementation,graph_nodes,graph_edges,source,target,repetitions,warmups,median_ms,min_ms,distance_m,visited,relaxations,speedup_vs_python,timing_method,wrapper_overhead_included
-real,A-B,python,28248,64912,17437,245,10,3,6.49545,5.9079,14354.483339,7824,8464,1.0,python_perf_counter,no
-real,A-B,cpp,28248,64912,17437,245,10,3,0.5134,0.4996,14354.483339,7824,8464,12.6518,cpp_internal_steady_clock,no
-real,A-B (end-to-end),cpp,28248,64912,17437,245,10,3,0.48735,0.4647,14354.483339,7824,8464,13.3281,cpp_end_to_end,yes
-real,A-B,networkx,28248,64912,17437,245,10,3,15.6819,14.4946,14354.483339,,,0.4142,python_perf_counter,no
-real,B-C,python,28248,64912,245,8616,10,3,0.11735,0.1084,761.562784,211,269,1.0,python_perf_counter,no
-real,B-C,cpp,28248,64912,245,8616,10,3,0.0141,0.0127,761.562784,211,269,8.3227,cpp_internal_steady_clock,no
-real,B-C (end-to-end),cpp,28248,64912,245,8616,10,3,0.01315,0.013,761.562784,211,269,8.924,cpp_end_to_end,yes
-real,B-C,networkx,28248,64912,245,8616,10,3,0.4691,0.335,761.562784,,,0.2502,python_perf_counter,no
-real,C-D,python,28248,64912,8616,27424,10,3,3.53715,2.9655,2899.095655,3005,3449,1.0,python_perf_counter,no
-real,C-D,cpp,28248,64912,8616,27424,10,3,0.303,0.2968,2899.095655,3005,3449,11.6738,cpp_internal_steady_clock,no
-real,C-D (end-to-end),cpp,28248,64912,8616,27424,10,3,0.29565,0.2895,2899.095655,3005,3449,11.964,cpp_end_to_end,yes
-real,C-D,networkx,28248,64912,8616,27424,10,3,10.5003,8.608,2899.095655,,,0.3369,python_perf_counter,no
-real,overall,python,28248,64912,17437,27424,10,3,10.14995,,18015.141778,,,1.0,sum_of_leg_medians,no
-real,overall,cpp,28248,64912,17437,27424,10,3,0.8305,,18015.141778,,,12.2215,sum_of_leg_medians,no
-real,overall,networkx,28248,64912,17437,27424,10,3,26.6513,,18015.141778,,,0.3808,sum_of_leg_medians,no
+real,A-B,python,28248,64912,17437,245,10,3,6.494,5.9079,14354.483339,7824,8464,1.0,python_perf_counter,no
+real,A-B,cpp,28248,64912,17437,245,10,3,0.513,0.4996,14354.483339,7824,8464,12.65,cpp_internal_steady_clock,no
+real,A-B (end-to-end),cpp,28248,64912,17437,245,10,3,0.48735,0.4647,14354.483339,7824,8464,13.33,cpp_end_to_end,yes
+real,B-C,python,28248,64912,245,8616,10,3,0.117,0.1084,761.562784,211,269,1.0,python_perf_counter,no
+real,B-C,cpp,28248,64912,245,8616,10,3,0.014,0.0127,761.562784,211,269,8.32,cpp_internal_steady_clock,no
+real,B-C (end-to-end),cpp,28248,64912,245,8616,10,3,0.01315,0.013,761.562784,211,269,8.90,cpp_end_to_end,yes
+real,C-D,python,28248,64912,8616,27424,10,3,3.535,2.9655,2899.095655,3005,3449,1.0,python_perf_counter,no
+real,C-D,cpp,28248,64912,8616,27424,10,3,0.303,0.2968,2899.095655,3005,3449,11.67,cpp_internal_steady_clock,no
+real,C-D (end-to-end),cpp,28248,64912,8616,27424,10,3,0.29565,0.2895,2899.095655,3005,3449,11.96,cpp_end_to_end,yes
+real,overall,python,28248,64912,17437,27424,10,3,10.146,,18015.141778,,,1.0,sum_of_leg_medians,no
+real,overall,cpp,28248,64912,17437,27424,10,3,0.831,,18015.141778,,,12.22,sum_of_leg_medians,no
 synthetic,n=1000,python,1000,6000,0,999,10,3,0.00185,0.0018,30.874679,2,4,1.0,python_perf_counter,no
-synthetic,n=1000,networkx,1000,6000,0,999,10,3,0.00565,0.0051,30.874679,,,0.3274,python_perf_counter,no
-synthetic,n=1000,cpp,1000,6000,0,999,10,3,0.0006,0.0006,30.874679,2,4,3.0833,cpp_internal_steady_clock,no
-synthetic,n=1000 (end-to-end),cpp,1000,6000,0,999,10,3,0.0018,0.0017,30.874679,2,4,1.0278,cpp_end_to_end,yes
+synthetic,n=1000,cpp,1000,6000,0,999,10,3,0.0006,0.0006,30.874679,2,4,3.08,cpp_internal_steady_clock,no
+synthetic,n=1000 (end-to-end),cpp,1000,6000,0,999,10,3,0.0018,0.0017,30.874679,2,4,1.03,cpp_end_to_end,yes
 synthetic,n=5000,python,5000,30000,0,4999,10,3,0.0044,0.0041,8.218278,3,17,1.0,python_perf_counter,no
-synthetic,n=5000,networkx,5000,30000,0,4999,10,3,0.0221,0.0217,8.218278,,,0.1991,python_perf_counter,no
-synthetic,n=5000,cpp,5000,30000,0,4999,10,3,0.00405,0.0038,8.218278,3,17,1.0864,cpp_internal_steady_clock,no
-synthetic,n=5000 (end-to-end),cpp,5000,30000,0,4999,10,3,0.00635,0.0061,8.218278,3,17,0.6929,cpp_end_to_end,yes
+synthetic,n=5000,cpp,5000,30000,0,4999,10,3,0.00405,0.0038,8.218278,3,17,1.09,cpp_internal_steady_clock,no
+synthetic,n=5000 (end-to-end),cpp,5000,30000,0,4999,10,3,0.00635,0.0061,8.218278,3,17,0.69,cpp_end_to_end,yes
 synthetic,n=10000,python,10000,60000,0,9999,10,3,0.00615,0.0058,50.518971,3,10,1.0,python_perf_counter,no
-synthetic,n=10000,networkx,10000,60000,0,9999,10,3,0.0167,0.016,50.518971,,,0.3683,python_perf_counter,no
-synthetic,n=10000,cpp,10000,60000,0,9999,10,3,0.00595,0.0056,50.518971,3,10,1.0336,cpp_internal_steady_clock,no
-synthetic,n=10000 (end-to-end),cpp,10000,60000,0,9999,10,3,0.00825,0.0081,50.518971,3,10,0.7455,cpp_end_to_end,yes
+synthetic,n=10000,cpp,10000,60000,0,9999,10,3,0.00595,0.0056,50.518971,3,10,1.03,cpp_internal_steady_clock,no
+synthetic,n=10000 (end-to-end),cpp,10000,60000,0,9999,10,3,0.00825,0.0081,50.518971,3,10,0.75,cpp_end_to_end,yes
 synthetic,n=25000,python,25000,150000,0,24999,10,3,0.20885,0.2034,74.353448,86,503,1.0,python_perf_counter,no
-synthetic,n=25000,networkx,25000,150000,0,24999,10,3,0.59205,0.5029,74.353448,,,0.3528,python_perf_counter,no
-synthetic,n=25000,cpp,25000,150000,0,24999,10,3,0.0238,0.023,74.353448,86,503,8.7752,cpp_internal_steady_clock,no
-synthetic,n=25000 (end-to-end),cpp,25000,150000,0,24999,10,3,0.02545,0.0251,74.353448,86,503,8.2063,cpp_end_to_end,yes
+synthetic,n=25000,cpp,25000,150000,0,24999,10,3,0.0238,0.023,74.353448,86,503,8.78,cpp_internal_steady_clock,no
+synthetic,n=25000 (end-to-end),cpp,25000,150000,0,24999,10,3,0.02545,0.0251,74.353448,86,503,8.21,cpp_end_to_end,yes
