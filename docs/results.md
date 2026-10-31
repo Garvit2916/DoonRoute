@@ -70,11 +70,20 @@ construction, and serialization are shared Python work.
 
 ## Plots
 
-- `results/execution_time.png`: per-leg Python vs. Cython medians
-- `results/overall_performance.png`: overall mandatory-route comparison
-- `results/speedup.png`: per-leg and overall speedups
-- `results/synthetic_scaling.png`: synthetic graph scaling
-- `results/route_comparison.png`: mandatory vs. unconstrained distance
+### Execution time by leg
+![Per-leg Python vs. Cython execution time](../results/execution_time.png)
+
+### Overall mandatory route performance
+![Overall mandatory route performance](../results/overall_performance.png)
+
+### Cython speedup over Python
+![Cython speedup over Python](../results/speedup.png)
+
+### Synthetic graph scaling
+![Synthetic graph scaling](../results/synthetic_scaling.png)
+
+### Mandatory vs. unconstrained route detour
+![Route comparison and detour](../results/route_comparison.png)
 
 ## Frontend screenshots
 

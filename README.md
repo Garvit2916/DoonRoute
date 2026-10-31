@@ -192,6 +192,22 @@ The exact values are in `results/benchmark_results.csv`; plots are written to
 `results/*.png`. These numbers are machine-specific and are not claims about
 other hardware.
 
+### Benchmark plots and visual analysis
+
+The generated benchmark plots visualize algorithm execution times, overall route performance, speedup factors, synthetic graph scaling, and route detour comparisons:
+
+| Execution Time by Leg | Overall Performance Comparison |
+|:---:|:---:|
+| ![Execution Time](results/execution_time.png) | ![Overall Performance](results/overall_performance.png) |
+
+| Cython Speedup over Python | Synthetic Graph Scaling ($n=1,000$ to $25,000$) |
+|:---:|:---:|
+| ![Speedup](results/speedup.png) | ![Synthetic Scaling](results/synthetic_scaling.png) |
+
+| Mandatory vs. Unconstrained Route Comparison |
+|:---:|
+| ![Route Comparison](results/route_comparison.png) |
+
 ## Verified route
 
 The mandatory route is A -> B -> C -> D, where D and E refer to the same Centrio
