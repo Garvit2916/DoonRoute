@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import math
 import struct
+import time
 from dataclasses import dataclass
 from itertools import pairwise
 from pathlib import Path
@@ -34,6 +35,7 @@ class RouteLeg:
     result: PathResult
     edge_distances: list[dict[str, Any]]
     road_names: list[str]
+    algorithm_ms: float = 0.0
 
     @property
     def distance_m(self) -> float:
@@ -46,6 +48,8 @@ class CombinedRoute:
     legs: list[RouteLeg]
     path: list[int]
     distance_m: float
+    algorithm_ms: float = 0.0
+    workflow_ms: float = 0.0
 
 
 def haversine_m(
@@ -106,7 +110,13 @@ def read_locations(path: str | Path) -> list[Location]:
 
 
 def snap_locations(graph: GraphData, locations: list[Location]) -> list[Location]:
-    index = SpatialIndex(graph)
+    index = getattr(graph, "spatial_index", None)
+    if index is None:
+        index = SpatialIndex(graph)
+        try:
+            graph.spatial_index = index
+        except (AttributeError, TypeError):
+            pass
     snapped: list[Location] = []
     for location in locations:
         nearest = index.nearest(location.latitude, location.longitude)
@@ -173,13 +183,27 @@ def edge_distances(graph: GraphData, path: list[int]) -> list[dict[str, Any]]:
     return records
 
 
-def road_names(graph: GraphData, path: list[int]) -> list[str]:
+def road_names(
+    graph: GraphData,
+    path: list[int],
+    records: list[dict[str, Any]] | None = None,
+) -> list[str]:
     names: list[str] = []
-    for edge in edge_distances(graph, path):
+    if records is None:
+        records = edge_distances(graph, path)
+    for edge in records:
         name = edge["name"] or f"Unnamed {edge['highway'] or 'road'}"
         if not names or names[-1] != name:
             names.append(name)
     return names
+
+
+def clear_route_cache(graph: GraphData | None = None) -> None:
+    if graph is not None:
+        if hasattr(graph, "_leg_cache") and graph._leg_cache is not None:
+            graph._leg_cache.clear()
+        if hasattr(graph, "_route_cache") and graph._route_cache is not None:
+            graph._route_cache.clear()
 
 
 def route_leg(
@@ -188,23 +212,44 @@ def route_leg(
     source_index: int,
     target_index: int,
 ) -> RouteLeg:
+    leg_cache = getattr(graph, "_leg_cache", None)
+    if leg_cache is None:
+        leg_cache = {}
+        try:
+            graph._leg_cache = leg_cache
+        except (AttributeError, TypeError):
+            pass
+    solver_key = getattr(solver, "__class__", type(solver))
+    cache_key = (solver_key, source_index, target_index)
+    cached_leg = leg_cache.get(cache_key)
+    if cached_leg is not None:
+        return cached_leg
+
+    t0_alg = time.perf_counter_ns()
     result = solver.shortest_path(source_index, target_index)
+    alg_ms = (time.perf_counter_ns() - t0_alg) / 1_000_000.0
+
     if not result.reachable:
         raise ValueError(f"No route from node {source_index} to {target_index}.")
     if not result.path or result.path[0] != source_index:
         raise ValueError("Solver returned a path with the wrong source.")
     if result.path[-1] != target_index:
         raise ValueError("Solver returned a path with the wrong target.")
-    reconstructed = path_distance(graph.adjacency, result.path)
+    edges = edge_distances(graph, result.path)
+    reconstructed = sum(record["distance_m"] for record in edges)
     if abs(reconstructed - result.distance) > 1e-6:
         raise ValueError("Solver distance does not match its path.")
-    return RouteLeg(
+    names = road_names(graph, result.path, records=edges)
+    leg = RouteLeg(
         source_index=source_index,
         target_index=target_index,
         result=result,
-        edge_distances=edge_distances(graph, result.path),
-        road_names=road_names(graph, result.path),
+        edge_distances=edges,
+        road_names=names,
+        algorithm_ms=alg_ms,
     )
+    leg_cache[cache_key] = leg
+    return leg
 
 
 def route_waypoints(
@@ -214,6 +259,20 @@ def route_waypoints(
 ) -> CombinedRoute:
     if len(waypoint_indices) < 2:
         raise ValueError("At least a start and destination are required.")
+    route_cache = getattr(graph, "_route_cache", None)
+    if route_cache is None:
+        route_cache = {}
+        try:
+            graph._route_cache = route_cache
+        except (AttributeError, TypeError):
+            pass
+    solver_key = getattr(solver, "__class__", type(solver))
+    route_key = (solver_key, tuple(waypoint_indices))
+    cached_route = route_cache.get(route_key)
+    if cached_route is not None:
+        return cached_route
+
+    t0_wf = time.perf_counter_ns()
     legs = [
         route_leg(solver, graph, source, target)
         for source, target in pairwise(waypoint_indices)
@@ -224,9 +283,15 @@ def route_waypoints(
             combined_path.extend(leg.result.path[1:])
         else:
             combined_path.extend(leg.result.path)
-    return CombinedRoute(
+    wf_ms = (time.perf_counter_ns() - t0_wf) / 1_000_000.0
+    alg_ms = sum(leg.algorithm_ms for leg in legs)
+    route = CombinedRoute(
         waypoint_indices=list(waypoint_indices),
         legs=legs,
         path=combined_path,
         distance_m=sum(leg.distance_m for leg in legs),
+        algorithm_ms=alg_ms,
+        workflow_ms=wf_ms,
     )
+    route_cache[route_key] = route
+    return route

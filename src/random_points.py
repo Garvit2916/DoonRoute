@@ -40,7 +40,13 @@ def generate_random_points(
         return []
 
     west, south, east, north = graph.bounds
-    index = SpatialIndex(graph)
+    index = getattr(graph, "spatial_index", None)
+    if index is None:
+        index = SpatialIndex(graph)
+        try:
+            graph.spatial_index = index
+        except (AttributeError, TypeError):
+            pass
     rng = random.Random(seed)
     points: list[RandomPoint] = []
 

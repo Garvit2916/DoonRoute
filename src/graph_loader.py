@@ -40,6 +40,7 @@ class GraphData:
     edge_attributes: dict[tuple[int, int], list[dict[str, Any]]]
     intersection_indices: list[int]
     bounds: tuple[float, float, float, float]
+    spatial_index: Any = None
 
     @property
     def node_count(self) -> int:
@@ -123,7 +124,9 @@ def load_graph(path: str | Path) -> GraphData:
         intersection_indices=[],
         bounds=bounds,
     )
-    from intersection import find_intersections
+    from intersection import SpatialIndex, find_intersections
 
     graph.intersection_indices = find_intersections(graph)
+    if graph.intersection_indices:
+        graph.spatial_index = SpatialIndex(graph)
     return graph

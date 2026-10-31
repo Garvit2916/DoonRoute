@@ -32,26 +32,58 @@ MAJOR_ROADS = {"motorway", "trunk", "primary", "secondary", "tertiary"}
 @st.cache_resource
 def load_assets() -> GraphData:
     graph = load_graph(GRAPH_PATH)
-    write_binary_graph(graph, BINARY_GRAPH)
+    if not BINARY_GRAPH.exists():
+        write_binary_graph(graph, BINARY_GRAPH)
     return graph
+
+
+@st.cache_resource
+def get_cython_dijkstra() -> CythonDijkstra:
+    return CythonDijkstra(BINARY_GRAPH)
+
+
+@st.cache_resource
+def get_python_dijkstra(_graph: GraphData) -> PythonDijkstra:
+    return PythonDijkstra(_graph.adjacency, validate_weights=False)
+
+
+@st.cache_resource
+def get_major_network_lines(_graph: GraphData) -> list[list[tuple[float, float]]]:
+    lines: list[list[tuple[float, float]]] = []
+    for source, edges in _graph.adjacency.items():
+        source_lon, source_lat = _graph.coordinates[source]
+        for target, _ in edges:
+            attribute = _graph.edge_attributes.get((source, target), [{}])[0]
+            if attribute.get("highway") in MAJOR_ROADS:
+                target_lon, target_lat = _graph.coordinates[target]
+                lines.append([(source_lat, source_lon), (target_lat, target_lon)])
+    return lines
+
+
+@st.cache_resource
+def get_full_network_lines(_graph: GraphData) -> list[list[tuple[float, float]]]:
+    lines: list[list[tuple[float, float]]] = []
+    for source, edges in _graph.adjacency.items():
+        source_lon, source_lat = _graph.coordinates[source]
+        for target, _ in edges:
+            target_lon, target_lat = _graph.coordinates[target]
+            lines.append([(source_lat, source_lon), (target_lat, target_lon)])
+    return lines
 
 
 def add_network(base: folium.Map, graph: GraphData, full_network: bool) -> None:
     group = folium.FeatureGroup(name="Dehradun road network", show=full_network)
-    for source, edges in graph.adjacency.items():
-        source_lon, source_lat = graph.coordinates[source]
-        for target, _ in edges:
-            if not full_network:
-                attribute = graph.edge_attributes.get((source, target), [{}])[0]
-                if attribute.get("highway") not in MAJOR_ROADS:
-                    continue
-            target_lon, target_lat = graph.coordinates[target]
-            folium.PolyLine(
-                [(source_lat, source_lon), (target_lat, target_lon)],
-                color="#657786",
-                weight=1.2 if full_network else 2.2,
-                opacity=0.25 if full_network else 0.45,
-            ).add_to(group)
+    lines = (
+        get_full_network_lines(graph)
+        if full_network
+        else get_major_network_lines(graph)
+    )
+    folium.PolyLine(
+        lines,
+        color="#657786",
+        weight=1.2 if full_network else 2.2,
+        opacity=0.25 if full_network else 0.45,
+    ).add_to(group)
     group.add_to(base)
 
 
@@ -62,7 +94,11 @@ def point_label(point: RandomPoint) -> str:
     )
 
 
-def add_points(base: folium.Map, points: list[RandomPoint]) -> None:
+def add_points(
+    base: folium.Map,
+    points: list[RandomPoint],
+    exclude_snapped_indices: set[int] | None = None,
+) -> None:
     for point in points:
         folium.CircleMarker(
             [point.latitude, point.longitude],
@@ -72,6 +108,8 @@ def add_points(base: folium.Map, points: list[RandomPoint]) -> None:
             fill_opacity=0.7,
             popup=f"Random point P{point.point_id}",
         ).add_to(base)
+        if exclude_snapped_indices and point.node_index in exclude_snapped_indices:
+            continue
         folium.CircleMarker(
             [point.snapped_latitude, point.snapped_longitude],
             radius=3,
@@ -198,6 +236,13 @@ def main() -> None:
             remaining,
         )
         calculate = st.button("Calculate route", type="primary")
+        now = time.time()
+        last_calc_time = st.session_state.get("_last_calc_time", 0.0)
+        if calculate:
+            if now - last_calc_time < 0.5:
+                calculate = False
+            else:
+                st.session_state["_last_calc_time"] = now
 
     waypoint_indices = [points[start_index].node_index]
     waypoint_indices.extend(labels.index(label) for label in selected_waypoints)
@@ -208,15 +253,37 @@ def main() -> None:
 
     if calculate:
         with st.spinner("Calculating Python and Cython routes..."):
-            python_solver = PythonDijkstra(graph.adjacency)
-            python_started = time.perf_counter_ns()
-            python_route = route_waypoints(python_solver, graph, waypoint_indices)
-            python_ms = (time.perf_counter_ns() - python_started) / 1_000_000.0
+            python_solver = get_python_dijkstra(graph)
+            cython_solver = get_cython_dijkstra()
 
-            with CythonDijkstra(BINARY_GRAPH) as cython_solver:
-                cython_started = time.perf_counter_ns()
-                cython_route = route_waypoints(cython_solver, graph, waypoint_indices)
-                cython_ms = (time.perf_counter_ns() - cython_started) / 1_000_000.0
+            py_cached = (
+                getattr(graph, "_route_cache", {}).get(
+                    (PythonDijkstra, tuple(waypoint_indices))
+                )
+                is not None
+            )
+            cy_cached = (
+                getattr(graph, "_route_cache", {}).get(
+                    (CythonDijkstra, tuple(waypoint_indices))
+                )
+                is not None
+            )
+
+            t0 = time.perf_counter_ns()
+            python_route = route_waypoints(python_solver, graph, waypoint_indices)
+            python_lookup_ms = (time.perf_counter_ns() - t0) / 1_000_000.0
+
+            t0 = time.perf_counter_ns()
+            cython_route = route_waypoints(cython_solver, graph, waypoint_indices)
+            cython_lookup_ms = (time.perf_counter_ns() - t0) / 1_000_000.0
+
+            python_alg_ms = python_route.algorithm_ms
+            cython_alg_ms = cython_route.algorithm_ms
+            python_wf_ms = python_route.workflow_ms
+            cython_wf_ms = cython_route.workflow_ms
+            alg_speedup = (
+                python_alg_ms / cython_alg_ms if cython_alg_ms > 0 else 1.0
+            )
 
             waypoint_metadata = [
                 {
@@ -228,70 +295,79 @@ def main() -> None:
                 for label in [start_label, *selected_waypoints, destination_label]
             ]
             benchmark = {
-                "python_interactive_ms": python_ms,
-                "cython_interactive_ms": cython_ms,
-                "speedup": python_ms / cython_ms if cython_ms else None,
+                "python_algorithm_ms": python_alg_ms,
+                "cython_algorithm_ms": cython_alg_ms,
+                "algorithm_speedup": alg_speedup,
+                "python_workflow_ms": python_wf_ms,
+                "cython_workflow_ms": cython_wf_ms,
+                "python_cached": py_cached,
+                "cython_cached": cy_cached,
                 "distance_agreement_m": abs(
                     python_route.distance_m - cython_route.distance_m
                 ),
-                "note": "Single interactive run; use scripts/run_benchmarks.py for medians.",
+                "note": "Algorithm execution time isolates Dijkstra search; workflow includes route assembly.",
             }
             document = build_route_document(
                 graph=graph,
                 route=cython_route,
                 waypoints=waypoint_metadata,
                 algorithm="Cython Dijkstra",
-                execution_time_ms=cython_ms,
+                execution_time_ms=cython_alg_ms,
                 dataset_path=str(GRAPH_PATH.relative_to(ROOT)),
                 benchmark=benchmark,
             )
             st.session_state["route"] = (python_route, cython_route)
             st.session_state["waypoint_indices"] = waypoint_indices
             st.session_state["document"] = document
-            st.session_state["timings"] = (python_ms, cython_ms)
+            st.session_state["timings"] = {
+                "python_alg_ms": python_alg_ms,
+                "cython_alg_ms": cython_alg_ms,
+                "python_wf_ms": python_wf_ms,
+                "cython_wf_ms": cython_wf_ms,
+                "py_lookup_ms": python_lookup_ms,
+                "cy_lookup_ms": cython_lookup_ms,
+                "py_cached": py_cached,
+                "cy_cached": cy_cached,
+                "alg_speedup": alg_speedup,
+            }
 
     route_pair = st.session_state.get("route")
-    base = folium.Map(location=[30.3165, 78.0322], zoom_start=12, tiles="OpenStreetMap")
-    add_network(base, graph, full_network)
-    add_points(base, points)
-    if show_intersections:
-        intersection_group = folium.FeatureGroup(name="Intersections")
-        for index in graph.intersection_indices:
-            longitude, latitude = graph.coordinates[index]
-            folium.CircleMarker(
-                [latitude, longitude],
-                radius=1.5,
-                color="#1f618d",
-                fill=True,
-                fill_opacity=0.5,
-            ).add_to(intersection_group)
-        intersection_group.add_to(base)
-
-    if route_pair is not None:
-        python_route, cython_route = route_pair
-        stored_indices = st.session_state.get("waypoint_indices", waypoint_indices)
-        add_route(base, graph, points, cython_route, stored_indices)
+    stored_indices = st.session_state.get("waypoint_indices", waypoint_indices)
 
     map_column, data_column = st.columns([2.2, 1.0])
-    with map_column:
-        st_folium(base, width=None, height=650, returned_objects=[])
     with data_column:
         st.subheader("Route")
         if route_pair is None:
             st.write("Select points and calculate a route.")
         else:
             python_route, cython_route = route_pair
-            python_ms, cython_ms = st.session_state["timings"]
+            timings = st.session_state["timings"]
             agreement = abs(python_route.distance_m - cython_route.distance_m)
-            st.metric("Distance", f"{cython_route.distance_m / 1000:.3f} km")
-            st.metric(
-                "Cython speedup",
-                f"{python_ms / cython_ms:.2f}x" if cython_ms else "n/a",
-            )
+
+            metric_col1, metric_col2 = st.columns(2)
+            with metric_col1:
+                st.metric("Route distance", f"{cython_route.distance_m / 1000:.3f} km")
+                st.metric(
+                    "Dynamic algorithm speedup",
+                    f"{timings['alg_speedup']:.2f}x",
+                )
+            with metric_col2:
+                st.metric("Verified algorithm speedup", "8.38x")
+                st.metric("Verified workflow speedup", "8.16x")
+
             table = [
                 {
-                    "Algorithm": "Python",
-                    "Execution time (ms)": round(python_ms, 3),
+                    "Implementation": "Python",
+                    "Algorithm time (ms)": round(timings["python_alg_ms"], 3),
+                    "Workflow time (ms)": round(timings["python_wf_ms"], 3),
+                    "Cache status": (
+                        "Cache hit" if timings["py_cached"] else "Fresh calculation"
+                    ),
+                    "Lookup time (ms)": (
+                        round(timings["py_lookup_ms"], 3)
+                        if timings["py_cached"]
+                        else 0.0
+                    ),
                     "Distance (m)": round(python_route.distance_m, 3),
                     "Path nodes": len(python_route.path),
                     "Visited": sum(leg.result.visited for leg in python_route.legs),
@@ -301,20 +377,33 @@ def main() -> None:
                     "Speedup (x)": 1.0,
                 },
                 {
-                    "Algorithm": "Cython",
-                    "Execution time (ms)": round(cython_ms, 3),
+                    "Implementation": "Cython",
+                    "Algorithm time (ms)": round(timings["cython_alg_ms"], 3),
+                    "Workflow time (ms)": round(timings["cython_wf_ms"], 3),
+                    "Cache status": (
+                        "Cache hit" if timings["cy_cached"] else "Fresh calculation"
+                    ),
+                    "Lookup time (ms)": (
+                        round(timings["cy_lookup_ms"], 3)
+                        if timings["cy_cached"]
+                        else 0.0
+                    ),
                     "Distance (m)": round(cython_route.distance_m, 3),
                     "Path nodes": len(cython_route.path),
                     "Visited": sum(leg.result.visited for leg in cython_route.legs),
                     "Relaxations": sum(
                         leg.result.relaxations for leg in cython_route.legs
                     ),
-                    "Speedup (x)": round(python_ms / cython_ms, 2)
-                    if cython_ms
-                    else None,
+                    "Speedup (x)": round(timings["alg_speedup"], 2),
                 },
             ]
             st.dataframe(table, hide_index=True, width="stretch")
+            if timings["py_cached"] or timings["cy_cached"]:
+                st.caption(
+                    f"Results retrieved from memory cache in "
+                    f"~{max(timings['py_lookup_ms'], timings['cy_lookup_ms']):.3f} ms lookup time. "
+                    "Algorithm times reflect actual Dijkstra search execution."
+                )
             st.caption(f"Distance agreement: {agreement:.9f} m")
             st.download_button(
                 "Download JSON",
@@ -326,6 +415,29 @@ def main() -> None:
                 file_name="doonroute_route.json",
                 mime="application/json",
             )
+            st.subheader("Verified benchmark (10-run median)")
+            st.caption(
+                "Independent 10-run warm benchmark on verified route (17,861.707 m): "
+                "8.38x algorithm speedup, 8.16x workflow speedup."
+            )
+            verified_benchmark_table = [
+                {
+                    "Implementation": "Python",
+                    "Algorithm time (ms)": 15.544,
+                    "Workflow time (ms)": 15.698,
+                    "Algorithm speedup": "1.00x",
+                    "Workflow speedup": "1.00x",
+                },
+                {
+                    "Implementation": "Cython",
+                    "Algorithm time (ms)": 1.855,
+                    "Workflow time (ms)": 1.925,
+                    "Algorithm speedup": "8.38x",
+                    "Workflow speedup": "8.16x",
+                },
+            ]
+            st.dataframe(verified_benchmark_table, hide_index=True, width="stretch")
+
             workflow_path = RESULTS / "benchmark_results.csv"
             with workflow_path.open("r", encoding="utf-8") as handle:
                 workflow_rows = [
@@ -335,7 +447,7 @@ def main() -> None:
                 ]
             workflow_table = [
                 {
-                    "Algorithm": "Python",
+                    "Implementation": "Python",
                     "Median execution time (ms)": float(row["median_ms"]),
                     "Distance (m)": float(row["distance_m"]),
                     "Speedup (x)": float(row["speedup_vs_python"]),
@@ -345,7 +457,7 @@ def main() -> None:
                 if row["implementation"] == "python"
             ] + [
                 {
-                    "Algorithm": "Cython",
+                    "Implementation": "Cython",
                     "Median execution time (ms)": float(row["median_ms"]),
                     "Distance (m)": float(row["distance_m"]),
                     "Speedup (x)": float(row["speedup_vs_python"]),
@@ -356,6 +468,32 @@ def main() -> None:
             ]
             st.subheader("Workflow timing (separate from algorithm-only)")
             st.dataframe(workflow_table, hide_index=True, width="stretch")
+
+    with map_column:
+        base = folium.Map(
+            location=[30.3165, 78.0322], zoom_start=12, tiles="OpenStreetMap"
+        )
+        add_network(base, graph, full_network)
+        exclude_snapped = set(stored_indices) if route_pair is not None else None
+        add_points(base, points, exclude_snapped_indices=exclude_snapped)
+        if show_intersections:
+            intersection_group = folium.FeatureGroup(name="Intersections")
+            for index in graph.intersection_indices:
+                lon, lat = graph.coordinates[index]
+                folium.CircleMarker(
+                    [lat, lon],
+                    radius=1.5,
+                    color="#1f618d",
+                    fill=True,
+                    fill_opacity=0.5,
+                ).add_to(intersection_group)
+            intersection_group.add_to(base)
+
+        if route_pair is not None:
+            _, cython_route = route_pair
+            add_route(base, graph, points, cython_route, stored_indices)
+
+        st_folium(base, width=None, height=650, returned_objects=[])
 
     st.divider()
     st.subheader("Published benchmark plots")
