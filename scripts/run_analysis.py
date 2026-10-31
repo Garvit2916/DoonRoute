@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import time
 from itertools import pairwise
 from pathlib import Path
 from typing import Any
@@ -9,18 +10,18 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from cython_dijkstra import CythonDijkstra
 
-from cpp_dijkstra import CppDijkstra
+from graph_loader import GraphData, load_graph
+from json_export import build_route_document, write_route_json
 from python_dijkstra import PythonDijkstra
 from routing import (
-    GraphData,
     Location,
-    NetworkXDijkstra,
-    load_graph,
     location_by_role,
     path_distance,
     read_locations,
     road_names,
+    route_waypoints,
     snap_locations,
     write_binary_graph,
 )
@@ -29,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GRAPH_PATH = ROOT / "data" / "raw" / "dehradun_drive.graphml"
 LOCATIONS_PATH = ROOT / "data" / "locations.csv"
 PROCESSED = ROOT / "data" / "processed"
+EXPORTS = ROOT / "data" / "exports"
 RESULTS = ROOT / "results"
 BINARY_GRAPH = PROCESSED / "graph.bin"
 TOLERANCE_M = 1e-6
@@ -140,7 +142,7 @@ def plot_route_comparison(
             ha="center",
             va="bottom",
             fontsize=9,
-            fontweight="medium",
+            fontweight="normal",
         )
     axis.set_ylabel("Road distance (km)", fontsize=10)
     axis.set_title(
@@ -159,11 +161,13 @@ def plot_route_comparison(
 def main() -> None:
     RESULTS.mkdir(parents=True, exist_ok=True)
     PROCESSED.mkdir(parents=True, exist_ok=True)
+    EXPORTS.mkdir(parents=True, exist_ok=True)
 
     print(f"Loading {GRAPH_PATH}")
     graph = load_graph(GRAPH_PATH)
     write_binary_graph(graph, BINARY_GRAPH)
     print(f"Graph: {graph.node_count:,} nodes, {graph.edge_count:,} directed edges")
+    print(f"Intersections: {len(graph.intersection_indices):,}")
 
     locations = snap_locations(graph, read_locations(LOCATIONS_PATH))
     for location in locations:
@@ -184,19 +188,20 @@ def main() -> None:
     leg_distances_by_implementation: dict[str, list[float]] = {}
     unconstrained_by_implementation: dict[str, float] = {}
 
-    with CppDijkstra(BINARY_GRAPH, graph.node_count) as cpp:
+    with CythonDijkstra(BINARY_GRAPH) as cython:
         solvers = {
             "python": PythonDijkstra(graph.adjacency),
-            "cpp": cpp,
-            "networkx": NetworkXDijkstra(graph.graph),
+            "cython": cython,
         }
 
         for implementation, solver in solvers.items():
             distances: list[float] = []
+            edge_count = 0
             for leg_name, (source, target) in zip(leg_names, legs, strict=True):
                 result = solver.shortest_path(source.node_index, target.node_index)
                 validate_result(graph, result, source, target, implementation)
                 distances.append(float(result.distance))
+                edge_count += max(len(result.path) - 1, 0)
                 rows.append(
                     result_row(
                         graph,
@@ -217,9 +222,7 @@ def main() -> None:
                     d,
                     implementation,
                     sum(distances),
-                    sum(
-                        max(len(row["path_nodes"].split()) - 1, 0) for row in rows[-3:]
-                    ),
+                    edge_count,
                 )
             )
             unconstrained_result = solver.shortest_path(a.node_index, d.node_index)
@@ -271,6 +274,33 @@ def main() -> None:
         RESULTS / "route_comparison.png",
     )
 
+    waypoint_metadata = [
+        {
+            "name": location.name,
+            "original_latitude": location.latitude,
+            "original_longitude": location.longitude,
+            "snap_distance_m": location.snap_distance_m,
+        }
+        for location in stops
+    ]
+    python_solver = PythonDijkstra(graph.adjacency)
+    started = time.perf_counter_ns()
+    sample_route = route_waypoints(
+        python_solver,
+        graph,
+        [location.node_index for location in stops],
+    )
+    elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
+    sample_document = build_route_document(
+        graph=graph,
+        route=sample_route,
+        waypoints=waypoint_metadata,
+        algorithm="Python Dijkstra",
+        execution_time_ms=elapsed_ms,
+        dataset_path=str(GRAPH_PATH.relative_to(ROOT)),
+    )
+    sample_path = write_route_json(sample_document, EXPORTS / "route_export.json")
+
     print("\nRoute summary")
     for leg_name, distance in zip(leg_names, reference, strict=True):
         print(f"  {leg_name}: {distance / 1000:.3f} km")
@@ -278,6 +308,7 @@ def main() -> None:
     print(f"  Unconstrained A to D: {unconstrained / 1000:.3f} km")
     print(f"  Mandatory detour: {(mandatory_total - unconstrained) / 1000:.3f} km")
     print("\nAll implementations agree within 1e-6 m.")
+    print(f"Sample JSON export: {sample_path}")
 
 
 if __name__ == "__main__":

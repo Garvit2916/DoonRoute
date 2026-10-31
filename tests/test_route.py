@@ -1,15 +1,19 @@
+from functools import lru_cache
 from itertools import pairwise
 from pathlib import Path
 
-from cpp_dijkstra import CppDijkstra
+from cython_dijkstra import CythonDijkstra
+
+from graph_loader import load_graph
 from python_dijkstra import PythonDijkstra
+from random_points import generate_random_points
 from routing import (
-    NetworkXDijkstra,
-    load_graph,
     location_by_role,
     path_distance,
     read_locations,
+    route_waypoints,
     snap_locations,
+    write_binary_graph,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,8 +23,31 @@ BINARY_GRAPH = ROOT / "data" / "processed" / "graph.bin"
 TOLERANCE_M = 1e-6
 
 
+@lru_cache(maxsize=1)
+def real_graph():
+    return load_graph(GRAPH_PATH)
+
+
+@lru_cache(maxsize=1)
+def real_binary_graph() -> Path:
+    graph = real_graph()
+    write_binary_graph(graph, BINARY_GRAPH)
+    return BINARY_GRAPH
+
+
+def test_real_graph_statistics_and_intersections() -> None:
+    graph = real_graph()
+    assert graph.node_count == 28_248
+    assert graph.edge_count == 64_912
+    assert len(graph.intersection_indices) > 10_000
+
+    locations = snap_locations(graph, read_locations(LOCATIONS_PATH))
+    for location in locations:
+        assert location.node_index in graph.intersection_indices
+
+
 def test_mandatory_waypoint_route_total() -> None:
-    graph = load_graph(GRAPH_PATH)
+    graph = real_graph()
     locations = snap_locations(graph, read_locations(LOCATIONS_PATH))
     stops = [
         location_by_role(locations, "start"),
@@ -29,11 +56,10 @@ def test_mandatory_waypoint_route_total() -> None:
         location_by_role(locations, "destination"),
     ]
 
-    with CppDijkstra(BINARY_GRAPH, graph.node_count) as cpp:
+    with CythonDijkstra(real_binary_graph()) as cython:
         solvers = {
             "python": PythonDijkstra(graph.adjacency),
-            "cpp": cpp,
-            "networkx": NetworkXDijkstra(graph.graph),
+            "cython": cython,
         }
 
         mandatory_totals: dict[str, float] = {}
@@ -66,3 +92,31 @@ def test_mandatory_waypoint_route_total() -> None:
         expected_unconstrained = 14835.391087727205
         for distance in unconstrained.values():
             assert abs(distance - expected_unconstrained) <= TOLERANCE_M
+
+
+def test_random_points_route_on_real_graph() -> None:
+    graph = real_graph()
+    points = generate_random_points(
+        graph,
+        3,
+        seed=42,
+        max_snap_distance_m=2000.0,
+    )
+    assert len(points) == 3
+    assert all(point.node_index in graph.intersection_indices for point in points)
+
+    with CythonDijkstra(real_binary_graph()) as cython:
+        python_solver = PythonDijkstra(graph.adjacency)
+        python_route = route_waypoints(
+            python_solver,
+            graph,
+            [points[0].node_index, points[-1].node_index],
+        )
+        cython_route = route_waypoints(
+            cython,
+            graph,
+            [points[0].node_index, points[-1].node_index],
+        )
+
+    assert abs(python_route.distance_m - cython_route.distance_m) <= TOLERANCE_M
+    assert python_route.path == cython_route.path

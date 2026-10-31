@@ -1,31 +1,46 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=68", "Cython==3.3.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "doonroute"
-version = "0.1.0"
-description = "Shortest-distance waypoint routing on Dehradun's real road network with a from-scratch Dijkstra implementation"
+version = "0.2.0"
+description = "Random-point routing on Dehradun's real road network with Python and Cython Dijkstra"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 dependencies = [
     "networkx==3.6.1",
-    "numpy==2.4.6",
-    "matplotlib==3.11.2",
-    "osmnx==2.1.1",
-    "osmium==4.3.2",
-    "requests==2.32.5",
+    "numpy==1.26.4",
+    "matplotlib==3.11.1",
+    "scipy==1.17.1",
+    "requests==2.34.2",
     "Cython==3.3.0",
+    "streamlit==1.66.1",
+    "folium==0.20.0",
+    "streamlit-folium==0.27.4",
 ]
 
 [project.optional-dependencies]
-test = ["pytest==9.2.0"]
+test = ["pytest==9.1.1", "ruff==0.16.9"]
+data = ["osmnx==2.1.1", "osmium==4.3.2"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-py-modules = ["python_dijkstra", "routing", "benchmark", "cpp_dijkstra"]
+py-modules = [
+    "benchmark",
+    "graph_loader",
+    "intersection",
+    "json_export",
+    "python_dijkstra",
+    "random_points",
+    "routing",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+
+[tool.ruff]
+line-length = 88

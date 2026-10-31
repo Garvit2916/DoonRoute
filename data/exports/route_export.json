@@ -1,0 +1,4244 @@
+{
+  "project": "DoonRoute",
+  "exported_at": "2026-10-31T08:24:07.874603+00:00",
+  "dataset": {
+    "path": "data\\raw\\dehradun_drive.graphml",
+    "node_count": 28248,
+    "edge_count": 64912,
+    "weight": "road distance in metres"
+  },
+  "algorithm": "Python Dijkstra",
+  "execution_time_ms": 28.8807,
+  "source": {
+    "name": "Zenith Youth Hostel (Bidholi)",
+    "node_index": 17437,
+    "osm_node": 10011044543,
+    "latitude": 30.4093114,
+    "longitude": 77.9694362,
+    "original_latitude": 30.4092544,
+    "original_longitude": 77.9692954,
+    "snap_distance_m": 14.927386584809865
+  },
+  "destination": {
+    "name": "Centrio Mall",
+    "node_index": 27424,
+    "osm_node": 10196569536,
+    "latitude": 30.3439938,
+    "longitude": 78.0481019,
+    "original_latitude": 30.3433787,
+    "original_longitude": 78.0479563,
+    "snap_distance_m": 69.80936041959609
+  },
+  "waypoints": [
+    {
+      "name": "Zenith Youth Hostel (Bidholi)",
+      "node_index": 17437,
+      "osm_node": 10011044543,
+      "latitude": 30.4093114,
+      "longitude": 77.9694362,
+      "original_latitude": 30.4092544,
+      "original_longitude": 77.9692954,
+      "snap_distance_m": 14.927386584809865
+    },
+    {
+      "name": "Paltan Bazaar",
+      "node_index": 245,
+      "osm_node": 1217127863,
+      "latitude": 30.3203267,
+      "longitude": 78.0374293,
+      "original_latitude": 30.320501,
+      "original_longitude": 78.037545,
+      "snap_distance_m": 22.337677698428305
+    },
+    {
+      "name": "Ghanta Ghar",
+      "node_index": 8616,
+      "osm_node": 6699305178,
+      "latitude": 30.3244699,
+      "longitude": 78.0418807,
+      "original_latitude": 30.3243249,
+      "original_longitude": 78.0418653,
+      "snap_distance_m": 16.190906552281326
+    },
+    {
+      "name": "Centrio Mall",
+      "node_index": 27424,
+      "osm_node": 10196569536,
+      "latitude": 30.3439938,
+      "longitude": 78.0481019,
+      "original_latitude": 30.3433787,
+      "original_longitude": 78.0479563,
+      "snap_distance_m": 69.80936041959609
+    }
+  ],
+  "legs": [
+    {
+      "source_node_index": 17437,
+      "target_node_index": 245,
+      "source_osm_node": 10011044543,
+      "target_osm_node": 1217127863,
+      "distance_m": 14354.483338816368,
+      "distance_km": 14.354483338816367,
+      "path_node_count": 135,
+      "path_node_ids": [
+        10011044543,
+        9624219887,
+        10011203856,
+        10011203867,
+        10017337946,
+        10017278077,
+        10017305363,
+        10017337919,
+        3169522570,
+        10017305375,
+        13470516671,
+        10017324073,
+        10011104081,
+        10017341021,
+        10017298421,
+        10017298439,
+        10017407106,
+        10017484807,
+        10017473671,
+        3169522949,
+        10017401011,
+        10020455702,
+        10020466214,
+        10020472433,
+        10020455689,
+        10017465875,
+        10020455651,
+        10020359124,
+        3169526939,
+        10020509653,
+        10020313615,
+        10020456959,
+        10715964505,
+        10020329047,
+        10020365282,
+        5968647808,
+        10020583072,
+        10026269576,
+        10026274300,
+        10026268488,
+        10026312662,
+        10026280124,
+        10026269595,
+        5968639282,
+        5968639273,
+        5968741491,
+        5968639265,
+        5907693017,
+        5907693040,
+        10026161219,
+        9643289954,
+        10026510153,
+        9643289950,
+        9643289949,
+        10026510122,
+        2430622937,
+        8341110551,
+        10028683248,
+        9170911145,
+        2355631016,
+        2355630983,
+        10028729099,
+        2355630986,
+        2355630989,
+        2355630997,
+        2355631004,
+        2355631007,
+        2355631020,
+        2355631028,
+        10029118430,
+        2355630975,
+        9170941594,
+        6810590045,
+        2355630938,
+        6784303983,
+        9170941580,
+        2355630909,
+        1231824680,
+        10038921216,
+        2356709376,
+        2357304234,
+        4095893352,
+        1966250384,
+        4095893334,
+        2387026471,
+        2357304225,
+        4095893248,
+        4095893237,
+        1966250390,
+        4095893192,
+        2357304210,
+        4095893135,
+        2357304205,
+        2357304203,
+        1966250372,
+        4095892666,
+        2357304194,
+        2357304189,
+        2357304177,
+        2357304083,
+        6810637487,
+        11921614348,
+        10039182160,
+        6810713953,
+        6810637503,
+        6810637488,
+        11971347733,
+        11971347731,
+        6810637510,
+        10042421918,
+        3633951399,
+        3633951400,
+        2357303963,
+        6782511610,
+        6807667706,
+        6807648162,
+        2357303943,
+        10042368378,
+        14233017500,
+        14241154723,
+        2357303937,
+        2355569030,
+        10042112042,
+        14170891152,
+        14229658115,
+        14182075672,
+        6807496496,
+        4741389131,
+        14161783249,
+        14161783164,
+        14161783182,
+        14161783123,
+        1217127862,
+        14170901287,
+        1217127863
+      ],
+      "path_coordinates": [
+        {
+          "node_index": 17437,
+          "osm_node": 10011044543,
+          "latitude": 30.4093114,
+          "longitude": 77.9694362
+        },
+        {
+          "node_index": 14964,
+          "osm_node": 9624219887,
+          "latitude": 30.4075815,
+          "longitude": 77.9700337
+        },
+        {
+          "node_index": 17497,
+          "osm_node": 10011203856,
+          "latitude": 30.4049682,
+          "longitude": 77.9698086
+        },
+        {
+          "node_index": 17499,
+          "osm_node": 10011203867,
+          "latitude": 30.4045068,
+          "longitude": 77.9696752
+        },
+        {
+          "node_index": 17927,
+          "osm_node": 10017337946,
+          "latitude": 30.4042157,
+          "longitude": 77.9695718
+        },
+        {
+          "node_index": 17712,
+          "osm_node": 10017278077,
+          "latitude": 30.4023825,
+          "longitude": 77.9689781
+        },
+        {
+          "node_index": 17839,
+          "osm_node": 10017305363,
+          "latitude": 30.3997383,
+          "longitude": 77.9693441
+        },
+        {
+          "node_index": 17923,
+          "osm_node": 10017337919,
+          "latitude": 30.3986146,
+          "longitude": 77.9692095
+        },
+        {
+          "node_index": 3116,
+          "osm_node": 3169522570,
+          "latitude": 30.3982589,
+          "longitude": 77.9691565
+        },
+        {
+          "node_index": 17841,
+          "osm_node": 10017305375,
+          "latitude": 30.3969578,
+          "longitude": 77.9689468
+        },
+        {
+          "node_index": 28085,
+          "osm_node": 13470516671,
+          "latitude": 30.3958944,
+          "longitude": 77.968811
+        },
+        {
+          "node_index": 17876,
+          "osm_node": 10017324073,
+          "latitude": 30.3953304,
+          "longitude": 77.9687155
+        },
+        {
+          "node_index": 17469,
+          "osm_node": 10011104081,
+          "latitude": 30.3945266,
+          "longitude": 77.9684509
+        },
+        {
+          "node_index": 17946,
+          "osm_node": 10017341021,
+          "latitude": 30.3940654,
+          "longitude": 77.9683293
+        },
+        {
+          "node_index": 17789,
+          "osm_node": 10017298421,
+          "latitude": 30.3928862,
+          "longitude": 77.9681193
+        },
+        {
+          "node_index": 17792,
+          "osm_node": 10017298439,
+          "latitude": 30.3913648,
+          "longitude": 77.9689231
+        },
+        {
+          "node_index": 18057,
+          "osm_node": 10017407106,
+          "latitude": 30.390728,
+          "longitude": 77.9691709
+        },
+        {
+          "node_index": 18172,
+          "osm_node": 10017484807,
+          "latitude": 30.3894176,
+          "longitude": 77.9695656
+        },
+        {
+          "node_index": 18168,
+          "osm_node": 10017473671,
+          "latitude": 30.3889863,
+          "longitude": 77.9697121
+        },
+        {
+          "node_index": 3126,
+          "osm_node": 3169522949,
+          "latitude": 30.3886125,
+          "longitude": 77.969744
+        },
+        {
+          "node_index": 18055,
+          "osm_node": 10017401011,
+          "latitude": 30.3874261,
+          "longitude": 77.9706962
+        },
+        {
+          "node_index": 19855,
+          "osm_node": 10020455702,
+          "latitude": 30.3798149,
+          "longitude": 77.9764375
+        },
+        {
+          "node_index": 19879,
+          "osm_node": 10020466214,
+          "latitude": 30.3794353,
+          "longitude": 77.976281
+        },
+        {
+          "node_index": 19883,
+          "osm_node": 10020472433,
+          "latitude": 30.3791212,
+          "longitude": 77.9761319
+        },
+        {
+          "node_index": 19854,
+          "osm_node": 10020455689,
+          "latitude": 30.3772801,
+          "longitude": 77.976179
+        },
+        {
+          "node_index": 18150,
+          "osm_node": 10017465875,
+          "latitude": 30.3763163,
+          "longitude": 77.9763753
+        },
+        {
+          "node_index": 19850,
+          "osm_node": 10020455651,
+          "latitude": 30.3762845,
+          "longitude": 77.976382
+        },
+        {
+          "node_index": 19750,
+          "osm_node": 10020359124,
+          "latitude": 30.3753054,
+          "longitude": 77.9773843
+        },
+        {
+          "node_index": 3138,
+          "osm_node": 3169526939,
+          "latitude": 30.3749786,
+          "longitude": 77.9777582
+        },
+        {
+          "node_index": 19948,
+          "osm_node": 10020509653,
+          "latitude": 30.3741961,
+          "longitude": 77.9786203
+        },
+        {
+          "node_index": 19729,
+          "osm_node": 10020313615,
+          "latitude": 30.3739778,
+          "longitude": 77.9788931
+        },
+        {
+          "node_index": 19856,
+          "osm_node": 10020456959,
+          "latitude": 30.3737835,
+          "longitude": 77.9791352
+        },
+        {
+          "node_index": 27681,
+          "osm_node": 10715964505,
+          "latitude": 30.3728391,
+          "longitude": 77.9802579
+        },
+        {
+          "node_index": 19739,
+          "osm_node": 10020329047,
+          "latitude": 30.3728114,
+          "longitude": 77.980292
+        },
+        {
+          "node_index": 19756,
+          "osm_node": 10020365282,
+          "latitude": 30.3723719,
+          "longitude": 77.9808263
+        },
+        {
+          "node_index": 7036,
+          "osm_node": 5968647808,
+          "latitude": 30.3720722,
+          "longitude": 77.9811455
+        },
+        {
+          "node_index": 20100,
+          "osm_node": 10020583072,
+          "latitude": 30.371577,
+          "longitude": 77.9814707
+        },
+        {
+          "node_index": 21945,
+          "osm_node": 10026269576,
+          "latitude": 30.3696023,
+          "longitude": 77.9821229
+        },
+        {
+          "node_index": 21958,
+          "osm_node": 10026274300,
+          "latitude": 30.3693585,
+          "longitude": 77.9821999
+        },
+        {
+          "node_index": 21925,
+          "osm_node": 10026268488,
+          "latitude": 30.3687303,
+          "longitude": 77.9824101
+        },
+        {
+          "node_index": 22036,
+          "osm_node": 10026312662,
+          "latitude": 30.3680994,
+          "longitude": 77.9825964
+        },
+        {
+          "node_index": 21989,
+          "osm_node": 10026280124,
+          "latitude": 30.3651175,
+          "longitude": 77.9826166
+        },
+        {
+          "node_index": 21951,
+          "osm_node": 10026269595,
+          "latitude": 30.3634108,
+          "longitude": 77.9832193
+        },
+        {
+          "node_index": 7035,
+          "osm_node": 5968639282,
+          "latitude": 30.3627835,
+          "longitude": 77.9840285
+        },
+        {
+          "node_index": 7034,
+          "osm_node": 5968639273,
+          "latitude": 30.3615355,
+          "longitude": 77.9848194
+        },
+        {
+          "node_index": 7053,
+          "osm_node": 5968741491,
+          "latitude": 30.3596965,
+          "longitude": 77.9863765
+        },
+        {
+          "node_index": 7033,
+          "osm_node": 5968639265,
+          "latitude": 30.3586541,
+          "longitude": 77.9874144
+        },
+        {
+          "node_index": 6860,
+          "osm_node": 5907693017,
+          "latitude": 30.3583159,
+          "longitude": 77.9891029
+        },
+        {
+          "node_index": 6862,
+          "osm_node": 5907693040,
+          "latitude": 30.3576936,
+          "longitude": 77.989697
+        },
+        {
+          "node_index": 21669,
+          "osm_node": 10026161219,
+          "latitude": 30.3562296,
+          "longitude": 77.9911818
+        },
+        {
+          "node_index": 15117,
+          "osm_node": 9643289954,
+          "latitude": 30.3546385,
+          "longitude": 77.9922692
+        },
+        {
+          "node_index": 22192,
+          "osm_node": 10026510153,
+          "latitude": 30.354548,
+          "longitude": 77.9923336
+        },
+        {
+          "node_index": 15115,
+          "osm_node": 9643289950,
+          "latitude": 30.3542053,
+          "longitude": 77.9924686
+        },
+        {
+          "node_index": 15114,
+          "osm_node": 9643289949,
+          "latitude": 30.3539557,
+          "longitude": 77.992681
+        },
+        {
+          "node_index": 22189,
+          "osm_node": 10026510122,
+          "latitude": 30.3534166,
+          "longitude": 77.9935145
+        },
+        {
+          "node_index": 2623,
+          "osm_node": 2430622937,
+          "latitude": 30.3515407,
+          "longitude": 77.9931752
+        },
+        {
+          "node_index": 13952,
+          "osm_node": 8341110551,
+          "latitude": 30.351418,
+          "longitude": 77.9936637
+        },
+        {
+          "node_index": 22719,
+          "osm_node": 10028683248,
+          "latitude": 30.3510005,
+          "longitude": 78.0011702
+        },
+        {
+          "node_index": 14273,
+          "osm_node": 9170911145,
+          "latitude": 30.3502343,
+          "longitude": 78.0021582
+        },
+        {
+          "node_index": 520,
+          "osm_node": 2355631016,
+          "latitude": 30.3499901,
+          "longitude": 78.0024841
+        },
+        {
+          "node_index": 507,
+          "osm_node": 2355630983,
+          "latitude": 30.3489611,
+          "longitude": 78.0038808
+        },
+        {
+          "node_index": 22769,
+          "osm_node": 10028729099,
+          "latitude": 30.3488351,
+          "longitude": 78.004049
+        },
+        {
+          "node_index": 508,
+          "osm_node": 2355630986,
+          "latitude": 30.3491215,
+          "longitude": 78.0056455
+        },
+        {
+          "node_index": 509,
+          "osm_node": 2355630989,
+          "latitude": 30.3493195,
+          "longitude": 78.005958
+        },
+        {
+          "node_index": 510,
+          "osm_node": 2355630997,
+          "latitude": 30.349509,
+          "longitude": 78.0064252
+        },
+        {
+          "node_index": 513,
+          "osm_node": 2355631004,
+          "latitude": 30.3496352,
+          "longitude": 78.006728
+        },
+        {
+          "node_index": 515,
+          "osm_node": 2355631007,
+          "latitude": 30.3497482,
+          "longitude": 78.0068876
+        },
+        {
+          "node_index": 522,
+          "osm_node": 2355631020,
+          "latitude": 30.3500347,
+          "longitude": 78.0073484
+        },
+        {
+          "node_index": 527,
+          "osm_node": 2355631028,
+          "latitude": 30.3500989,
+          "longitude": 78.0075629
+        },
+        {
+          "node_index": 23474,
+          "osm_node": 10029118430,
+          "latitude": 30.349545,
+          "longitude": 78.0081988
+        },
+        {
+          "node_index": 503,
+          "osm_node": 2355630975,
+          "latitude": 30.348686,
+          "longitude": 78.0090567
+        },
+        {
+          "node_index": 14304,
+          "osm_node": 9170941594,
+          "latitude": 30.3480912,
+          "longitude": 78.0095967
+        },
+        {
+          "node_index": 13619,
+          "osm_node": 6810590045,
+          "latitude": 30.3480415,
+          "longitude": 78.0096338
+        },
+        {
+          "node_index": 495,
+          "osm_node": 2355630938,
+          "latitude": 30.3467774,
+          "longitude": 78.0109891
+        },
+        {
+          "node_index": 8787,
+          "osm_node": 6784303983,
+          "latitude": 30.3455297,
+          "longitude": 78.0124148
+        },
+        {
+          "node_index": 14297,
+          "osm_node": 9170941580,
+          "latitude": 30.3443093,
+          "longitude": 78.0137873
+        },
+        {
+          "node_index": 493,
+          "osm_node": 2355630909,
+          "latitude": 30.3433627,
+          "longitude": 78.0148607
+        },
+        {
+          "node_index": 270,
+          "osm_node": 1231824680,
+          "latitude": 30.3420829,
+          "longitude": 78.0163148
+        },
+        {
+          "node_index": 25766,
+          "osm_node": 10038921216,
+          "latitude": 30.3420492,
+          "longitude": 78.016354
+        },
+        {
+          "node_index": 801,
+          "osm_node": 2356709376,
+          "latitude": 30.3393483,
+          "longitude": 78.0194379
+        },
+        {
+          "node_index": 2010,
+          "osm_node": 2357304234,
+          "latitude": 30.338895,
+          "longitude": 78.0200106
+        },
+        {
+          "node_index": 4835,
+          "osm_node": 4095893352,
+          "latitude": 30.3388425,
+          "longitude": 78.020077
+        },
+        {
+          "node_index": 360,
+          "osm_node": 1966250384,
+          "latitude": 30.3383373,
+          "longitude": 78.0207154
+        },
+        {
+          "node_index": 4826,
+          "osm_node": 4095893334,
+          "latitude": 30.3382856,
+          "longitude": 78.0207823
+        },
+        {
+          "node_index": 2217,
+          "osm_node": 2387026471,
+          "latitude": 30.3381246,
+          "longitude": 78.0209909
+        },
+        {
+          "node_index": 2004,
+          "osm_node": 2357304225,
+          "latitude": 30.3377529,
+          "longitude": 78.0214483
+        },
+        {
+          "node_index": 4803,
+          "osm_node": 4095893248,
+          "latitude": 30.3373117,
+          "longitude": 78.0220016
+        },
+        {
+          "node_index": 4798,
+          "osm_node": 4095893237,
+          "latitude": 30.3371801,
+          "longitude": 78.0221666
+        },
+        {
+          "node_index": 361,
+          "osm_node": 1966250390,
+          "latitude": 30.3368803,
+          "longitude": 78.0225425
+        },
+        {
+          "node_index": 4789,
+          "osm_node": 4095893192,
+          "latitude": 30.3367154,
+          "longitude": 78.0227506
+        },
+        {
+          "node_index": 1994,
+          "osm_node": 2357304210,
+          "latitude": 30.3366202,
+          "longitude": 78.0228707
+        },
+        {
+          "node_index": 4777,
+          "osm_node": 4095893135,
+          "latitude": 30.3361559,
+          "longitude": 78.0234565
+        },
+        {
+          "node_index": 1992,
+          "osm_node": 2357304205,
+          "latitude": 30.3360054,
+          "longitude": 78.0236464
+        },
+        {
+          "node_index": 1991,
+          "osm_node": 2357304203,
+          "latitude": 30.3359679,
+          "longitude": 78.0236938
+        },
+        {
+          "node_index": 359,
+          "osm_node": 1966250372,
+          "latitude": 30.3354918,
+          "longitude": 78.0243149
+        },
+        {
+          "node_index": 4758,
+          "osm_node": 4095892666,
+          "latitude": 30.3353534,
+          "longitude": 78.0245253
+        },
+        {
+          "node_index": 1989,
+          "osm_node": 2357304194,
+          "latitude": 30.3353184,
+          "longitude": 78.0245784
+        },
+        {
+          "node_index": 1987,
+          "osm_node": 2357304189,
+          "latitude": 30.3352131,
+          "longitude": 78.0247386
+        },
+        {
+          "node_index": 1985,
+          "osm_node": 2357304177,
+          "latitude": 30.3348273,
+          "longitude": 78.0252447
+        },
+        {
+          "node_index": 1968,
+          "osm_node": 2357304083,
+          "latitude": 30.333813,
+          "longitude": 78.0263442
+        },
+        {
+          "node_index": 13640,
+          "osm_node": 6810637487,
+          "latitude": 30.3335788,
+          "longitude": 78.0265126
+        },
+        {
+          "node_index": 27925,
+          "osm_node": 11921614348,
+          "latitude": 30.3333533,
+          "longitude": 78.0268327
+        },
+        {
+          "node_index": 26090,
+          "osm_node": 10039182160,
+          "latitude": 30.3329132,
+          "longitude": 78.027425
+        },
+        {
+          "node_index": 13661,
+          "osm_node": 6810713953,
+          "latitude": 30.3326694,
+          "longitude": 78.0277574
+        },
+        {
+          "node_index": 13646,
+          "osm_node": 6810637503,
+          "latitude": 30.331756,
+          "longitude": 78.0287582
+        },
+        {
+          "node_index": 13641,
+          "osm_node": 6810637488,
+          "latitude": 30.3275747,
+          "longitude": 78.0325616
+        },
+        {
+          "node_index": 27958,
+          "osm_node": 11971347733,
+          "latitude": 30.3268036,
+          "longitude": 78.0332668
+        },
+        {
+          "node_index": 27956,
+          "osm_node": 11971347731,
+          "latitude": 30.326716,
+          "longitude": 78.0333507
+        },
+        {
+          "node_index": 13647,
+          "osm_node": 6810637510,
+          "latitude": 30.326579,
+          "longitude": 78.0336319
+        },
+        {
+          "node_index": 26909,
+          "osm_node": 10042421918,
+          "latitude": 30.3263383,
+          "longitude": 78.0343797
+        },
+        {
+          "node_index": 3423,
+          "osm_node": 3633951399,
+          "latitude": 30.3262693,
+          "longitude": 78.034976
+        },
+        {
+          "node_index": 3424,
+          "osm_node": 3633951400,
+          "latitude": 30.326172,
+          "longitude": 78.0349572
+        },
+        {
+          "node_index": 1966,
+          "osm_node": 2357303963,
+          "latitude": 30.326342,
+          "longitude": 78.0339326
+        },
+        {
+          "node_index": 8744,
+          "osm_node": 6782511610,
+          "latitude": 30.3249974,
+          "longitude": 78.0357835
+        },
+        {
+          "node_index": 13302,
+          "osm_node": 6807667706,
+          "latitude": 30.3247444,
+          "longitude": 78.0360624
+        },
+        {
+          "node_index": 13298,
+          "osm_node": 6807648162,
+          "latitude": 30.3244372,
+          "longitude": 78.0363544
+        },
+        {
+          "node_index": 1965,
+          "osm_node": 2357303943,
+          "latitude": 30.3243069,
+          "longitude": 78.0364872
+        },
+        {
+          "node_index": 26842,
+          "osm_node": 10042368378,
+          "latitude": 30.3241523,
+          "longitude": 78.0366839
+        },
+        {
+          "node_index": 28198,
+          "osm_node": 14233017500,
+          "latitude": 30.3240577,
+          "longitude": 78.0368064
+        },
+        {
+          "node_index": 28208,
+          "osm_node": 14241154723,
+          "latitude": 30.3237939,
+          "longitude": 78.0373944
+        },
+        {
+          "node_index": 1964,
+          "osm_node": 2357303937,
+          "latitude": 30.323646,
+          "longitude": 78.0378004
+        },
+        {
+          "node_index": 410,
+          "osm_node": 2355569030,
+          "latitude": 30.3232556,
+          "longitude": 78.0380274
+        },
+        {
+          "node_index": 26737,
+          "osm_node": 10042112042,
+          "latitude": 30.3231743,
+          "longitude": 78.0380779
+        },
+        {
+          "node_index": 28171,
+          "osm_node": 14170891152,
+          "latitude": 30.3229294,
+          "longitude": 78.0382351
+        },
+        {
+          "node_index": 28197,
+          "osm_node": 14229658115,
+          "latitude": 30.3228702,
+          "longitude": 78.0382774
+        },
+        {
+          "node_index": 28185,
+          "osm_node": 14182075672,
+          "latitude": 30.3226185,
+          "longitude": 78.0384563
+        },
+        {
+          "node_index": 13170,
+          "osm_node": 6807496496,
+          "latitude": 30.3225498,
+          "longitude": 78.0385032
+        },
+        {
+          "node_index": 5255,
+          "osm_node": 4741389131,
+          "latitude": 30.3219986,
+          "longitude": 78.0388371
+        },
+        {
+          "node_index": 28168,
+          "osm_node": 14161783249,
+          "latitude": 30.3218606,
+          "longitude": 78.0383072
+        },
+        {
+          "node_index": 28166,
+          "osm_node": 14161783164,
+          "latitude": 30.3216336,
+          "longitude": 78.0385625
+        },
+        {
+          "node_index": 28167,
+          "osm_node": 14161783182,
+          "latitude": 30.3215341,
+          "longitude": 78.0386725
+        },
+        {
+          "node_index": 28165,
+          "osm_node": 14161783123,
+          "latitude": 30.3213232,
+          "longitude": 78.0384224
+        },
+        {
+          "node_index": 244,
+          "osm_node": 1217127862,
+          "latitude": 30.3210883,
+          "longitude": 78.0381562
+        },
+        {
+          "node_index": 28180,
+          "osm_node": 14170901287,
+          "latitude": 30.3207412,
+          "longitude": 78.0378265
+        },
+        {
+          "node_index": 245,
+          "osm_node": 1217127863,
+          "latitude": 30.3203267,
+          "longitude": 78.0374293
+        }
+      ],
+      "road_names": [
+        "Unnamed tertiary",
+        "Unnamed unclassified",
+        "Kaulagarh Road",
+        "Unnamed unclassified",
+        "Kaulagarh Road",
+        "Chakrata Road",
+        "Bindal Pul; Chakrata Road",
+        "Bindal Chowk",
+        "Chakrata Road",
+        "Unnamed residential",
+        "Chakrata Road",
+        "Unnamed residential",
+        "Kalika Marg",
+        "Moti Bazar Road",
+        "Unnamed living_street",
+        "Paltan Bazar"
+      ],
+      "edge_distances": [
+        {
+          "from_node_index": 17437,
+          "to_node_index": 14964,
+          "from_osm_node": 10011044543,
+          "to_osm_node": 9624219887,
+          "distance_m": 222.0446989355533,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 14964,
+          "to_node_index": 17497,
+          "from_osm_node": 9624219887,
+          "to_osm_node": 10011203856,
+          "distance_m": 295.1813446738136,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17497,
+          "to_node_index": 17499,
+          "from_osm_node": 10011203856,
+          "to_osm_node": 10011203867,
+          "distance_m": 52.88243608239085,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17499,
+          "to_node_index": 17927,
+          "from_osm_node": 10011203867,
+          "to_osm_node": 10017337946,
+          "distance_m": 33.86797817228568,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17927,
+          "to_node_index": 17712,
+          "from_osm_node": 10017337946,
+          "to_osm_node": 10017278077,
+          "distance_m": 211.81503609426545,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17712,
+          "to_node_index": 17839,
+          "from_osm_node": 10017278077,
+          "to_osm_node": 10017305363,
+          "distance_m": 310.76576720308367,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17839,
+          "to_node_index": 17923,
+          "from_osm_node": 10017305363,
+          "to_osm_node": 10017337919,
+          "distance_m": 126.49678335082025,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17923,
+          "to_node_index": 3116,
+          "from_osm_node": 10017337919,
+          "to_osm_node": 3169522570,
+          "distance_m": 39.87739351246799,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 3116,
+          "to_node_index": 17841,
+          "from_osm_node": 3169522570,
+          "to_osm_node": 10017305375,
+          "distance_m": 146.169861400693,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17841,
+          "to_node_index": 28085,
+          "from_osm_node": 10017305375,
+          "to_osm_node": 13470516671,
+          "distance_m": 119.81007291770854,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 28085,
+          "to_node_index": 17876,
+          "from_osm_node": 13470516671,
+          "to_osm_node": 10017324073,
+          "distance_m": 63.68223212494345,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17876,
+          "to_node_index": 17469,
+          "from_osm_node": 10017324073,
+          "to_osm_node": 10011104081,
+          "distance_m": 93.71446920550349,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17469,
+          "to_node_index": 17946,
+          "from_osm_node": 10011104081,
+          "to_osm_node": 10017341021,
+          "distance_m": 52.905702589330254,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17946,
+          "to_node_index": 17789,
+          "from_osm_node": 10017341021,
+          "to_osm_node": 10017298421,
+          "distance_m": 133.17411170580257,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17789,
+          "to_node_index": 17792,
+          "from_osm_node": 10017298421,
+          "to_osm_node": 10017298439,
+          "distance_m": 192.15475263950657,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 17792,
+          "to_node_index": 18057,
+          "from_osm_node": 10017298439,
+          "to_osm_node": 10017407106,
+          "distance_m": 75.14666405705219,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 18057,
+          "to_node_index": 18172,
+          "from_osm_node": 10017407106,
+          "to_osm_node": 10017484807,
+          "distance_m": 154.0112412716,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 18172,
+          "to_node_index": 18168,
+          "from_osm_node": 10017484807,
+          "to_osm_node": 10017473671,
+          "distance_m": 51.51901172913773,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 18168,
+          "to_node_index": 3126,
+          "from_osm_node": 10017473671,
+          "to_osm_node": 3169522949,
+          "distance_m": 41.67719368006178,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 3126,
+          "to_node_index": 18055,
+          "from_osm_node": 3169522949,
+          "to_osm_node": 10017401011,
+          "distance_m": 161.4083727354491,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 18055,
+          "to_node_index": 19855,
+          "from_osm_node": 10017401011,
+          "to_osm_node": 10020455702,
+          "distance_m": 1134.3408569556332,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19855,
+          "to_node_index": 19879,
+          "from_osm_node": 10020455702,
+          "to_osm_node": 10020466214,
+          "distance_m": 44.89312995532971,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19879,
+          "to_node_index": 19883,
+          "from_osm_node": 10020466214,
+          "to_osm_node": 10020472433,
+          "distance_m": 37.74154874177232,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19883,
+          "to_node_index": 19854,
+          "from_osm_node": 10020472433,
+          "to_osm_node": 10020455689,
+          "distance_m": 208.4323787137283,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19854,
+          "to_node_index": 18150,
+          "from_osm_node": 10020455689,
+          "to_osm_node": 10017465875,
+          "distance_m": 108.81388771535647,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 18150,
+          "to_node_index": 19850,
+          "from_osm_node": 10017465875,
+          "to_osm_node": 10020455651,
+          "distance_m": 3.593943480349699,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19850,
+          "to_node_index": 19750,
+          "from_osm_node": 10020455651,
+          "to_osm_node": 10020359124,
+          "distance_m": 145.93680888853612,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 19750,
+          "to_node_index": 3138,
+          "from_osm_node": 10020359124,
+          "to_osm_node": 3169526939,
+          "distance_m": 51.059429186175265,
+          "name": "",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 3138,
+          "to_node_index": 19948,
+          "from_osm_node": 3169526939,
+          "to_osm_node": 10020509653,
+          "distance_m": 120.19588148597151,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 19948,
+          "to_node_index": 19729,
+          "from_osm_node": 10020509653,
+          "to_osm_node": 10020313615,
+          "distance_m": 35.694730694435925,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 19729,
+          "to_node_index": 19856,
+          "from_osm_node": 10020313615,
+          "to_osm_node": 10020456959,
+          "distance_m": 31.733475038949337,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 19856,
+          "to_node_index": 27681,
+          "from_osm_node": 10020456959,
+          "to_osm_node": 10715964505,
+          "distance_m": 150.56853691873707,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 27681,
+          "to_node_index": 19739,
+          "from_osm_node": 10715964505,
+          "to_osm_node": 10020329047,
+          "distance_m": 4.493190036790495,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 19739,
+          "to_node_index": 19756,
+          "from_osm_node": 10020329047,
+          "to_osm_node": 10020365282,
+          "distance_m": 70.82399534208352,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 19756,
+          "to_node_index": 7036,
+          "from_osm_node": 10020365282,
+          "to_osm_node": 5968647808,
+          "distance_m": 45.93096873071175,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 7036,
+          "to_node_index": 20100,
+          "from_osm_node": 5968647808,
+          "to_osm_node": 10020583072,
+          "distance_m": 63.906458611670445,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 20100,
+          "to_node_index": 21945,
+          "from_osm_node": 10020583072,
+          "to_osm_node": 10026269576,
+          "distance_m": 228.60504542675793,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21945,
+          "to_node_index": 21958,
+          "from_osm_node": 10026269576,
+          "to_osm_node": 10026274300,
+          "distance_m": 28.10275405701696,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21958,
+          "to_node_index": 21925,
+          "from_osm_node": 10026274300,
+          "to_osm_node": 10026268488,
+          "distance_m": 72.70543349360292,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21925,
+          "to_node_index": 22036,
+          "from_osm_node": 10026268488,
+          "to_osm_node": 10026312662,
+          "distance_m": 72.43543934172428,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 22036,
+          "to_node_index": 21989,
+          "from_osm_node": 10026312662,
+          "to_osm_node": 10026280124,
+          "distance_m": 347.25993123472546,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21989,
+          "to_node_index": 21951,
+          "from_osm_node": 10026280124,
+          "to_osm_node": 10026269595,
+          "distance_m": 219.31546836483722,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21951,
+          "to_node_index": 7035,
+          "from_osm_node": 10026269595,
+          "to_osm_node": 5968639282,
+          "distance_m": 104.61820864880869,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 7035,
+          "to_node_index": 7034,
+          "from_osm_node": 5968639282,
+          "to_osm_node": 5968639273,
+          "distance_m": 223.98989550329554,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 7034,
+          "to_node_index": 7053,
+          "from_osm_node": 5968639273,
+          "to_osm_node": 5968741491,
+          "distance_m": 253.72942838585234,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 7053,
+          "to_node_index": 7033,
+          "from_osm_node": 5968741491,
+          "to_osm_node": 5968639265,
+          "distance_m": 152.8441029484229,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 7033,
+          "to_node_index": 6860,
+          "from_osm_node": 5968639265,
+          "to_osm_node": 5907693017,
+          "distance_m": 219.38558392565145,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 6860,
+          "to_node_index": 6862,
+          "from_osm_node": 5907693017,
+          "to_osm_node": 5907693040,
+          "distance_m": 90.72404555320163,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 6862,
+          "to_node_index": 21669,
+          "from_osm_node": 5907693040,
+          "to_osm_node": 10026161219,
+          "distance_m": 216.57771349855244,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 21669,
+          "to_node_index": 15117,
+          "from_osm_node": 10026161219,
+          "to_osm_node": 9643289954,
+          "distance_m": 205.60745789997915,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 15117,
+          "to_node_index": 22192,
+          "from_osm_node": 9643289954,
+          "to_osm_node": 10026510153,
+          "distance_m": 11.808929744992238,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 22192,
+          "to_node_index": 15115,
+          "from_osm_node": 10026510153,
+          "to_osm_node": 9643289950,
+          "distance_m": 40.3760373712053,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 15115,
+          "to_node_index": 15114,
+          "from_osm_node": 9643289950,
+          "to_osm_node": 9643289949,
+          "distance_m": 34.47188307583837,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 15114,
+          "to_node_index": 22189,
+          "from_osm_node": 9643289949,
+          "to_osm_node": 10026510122,
+          "distance_m": 99.99362006423283,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 22189,
+          "to_node_index": 2623,
+          "from_osm_node": 10026510122,
+          "to_osm_node": 2430622937,
+          "distance_m": 349.47397132712604,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 2623,
+          "to_node_index": 13952,
+          "from_osm_node": 2430622937,
+          "to_osm_node": 8341110551,
+          "distance_m": 49.07639952130283,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 13952,
+          "to_node_index": 22719,
+          "from_osm_node": 8341110551,
+          "to_osm_node": 10028683248,
+          "distance_m": 855.8818656543617,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 22719,
+          "to_node_index": 14273,
+          "from_osm_node": 10028683248,
+          "to_osm_node": 9170911145,
+          "distance_m": 128.20687570523708,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 14273,
+          "to_node_index": 520,
+          "from_osm_node": 9170911145,
+          "to_osm_node": 2355631016,
+          "distance_m": 41.419638915593886,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 520,
+          "to_node_index": 507,
+          "from_osm_node": 2355631016,
+          "to_osm_node": 2355630983,
+          "distance_m": 176.22153000926167,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 507,
+          "to_node_index": 22769,
+          "from_osm_node": 2355630983,
+          "to_osm_node": 10028729099,
+          "distance_m": 21.372815308674923,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 22769,
+          "to_node_index": 508,
+          "from_osm_node": 10028729099,
+          "to_osm_node": 2355630986,
+          "distance_m": 203.7895925413271,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 508,
+          "to_node_index": 509,
+          "from_osm_node": 2355630986,
+          "to_osm_node": 2355630989,
+          "distance_m": 37.22288240755477,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 509,
+          "to_node_index": 510,
+          "from_osm_node": 2355630989,
+          "to_osm_node": 2355630997,
+          "distance_m": 49.7204656649393,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 510,
+          "to_node_index": 513,
+          "from_osm_node": 2355630997,
+          "to_osm_node": 2355631004,
+          "distance_m": 32.379097215473855,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 513,
+          "to_node_index": 515,
+          "from_osm_node": 2355631004,
+          "to_osm_node": 2355631007,
+          "distance_m": 19.809588631497192,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 515,
+          "to_node_index": 522,
+          "from_osm_node": 2355631007,
+          "to_osm_node": 2355631020,
+          "distance_m": 54.497824917821795,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 522,
+          "to_node_index": 527,
+          "from_osm_node": 2355631020,
+          "to_osm_node": 2355631028,
+          "distance_m": 21.837232470623746,
+          "name": "",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 527,
+          "to_node_index": 23474,
+          "from_osm_node": 2355631028,
+          "to_osm_node": 10029118430,
+          "distance_m": 87.53339212462903,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 23474,
+          "to_node_index": 503,
+          "from_osm_node": 10029118430,
+          "to_osm_node": 2355630975,
+          "distance_m": 126.11178045858932,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 503,
+          "to_node_index": 14304,
+          "from_osm_node": 2355630975,
+          "to_osm_node": 9170941594,
+          "distance_m": 84.08746357174822,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 14304,
+          "to_node_index": 13619,
+          "from_osm_node": 9170941594,
+          "to_osm_node": 6810590045,
+          "distance_m": 6.573812496893535,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 13619,
+          "to_node_index": 495,
+          "from_osm_node": 6810590045,
+          "to_osm_node": 2355630938,
+          "distance_m": 191.56322870776154,
+          "name": "Kaulagarh Road",
+          "highway": "unclassified"
+        },
+        {
+          "from_node_index": 495,
+          "to_node_index": 8787,
+          "from_osm_node": 2355630938,
+          "to_osm_node": 6784303983,
+          "distance_m": 194.92654950515714,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 8787,
+          "to_node_index": 14297,
+          "from_osm_node": 6784303983,
+          "to_osm_node": 9170941580,
+          "distance_m": 189.11320382381896,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 14297,
+          "to_node_index": 493,
+          "from_osm_node": 9170941580,
+          "to_osm_node": 2355630909,
+          "distance_m": 147.28275373493338,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 493,
+          "to_node_index": 270,
+          "from_osm_node": 2355630909,
+          "to_osm_node": 1231824680,
+          "distance_m": 199.30636712912724,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 270,
+          "to_node_index": 25766,
+          "from_osm_node": 1231824680,
+          "to_osm_node": 10038921216,
+          "distance_m": 5.309722866783541,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 25766,
+          "to_node_index": 801,
+          "from_osm_node": 10038921216,
+          "to_osm_node": 2356709376,
+          "distance_m": 421.66391666419054,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 801,
+          "to_node_index": 2010,
+          "from_osm_node": 2356709376,
+          "to_osm_node": 2357304234,
+          "distance_m": 74.57393916736771,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 2010,
+          "to_node_index": 4835,
+          "from_osm_node": 2357304234,
+          "to_osm_node": 4095893352,
+          "distance_m": 8.642019187957844,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4835,
+          "to_node_index": 360,
+          "from_osm_node": 4095893352,
+          "to_osm_node": 1966250384,
+          "distance_m": 83.12158767223154,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 360,
+          "to_node_index": 4826,
+          "from_osm_node": 1966250384,
+          "to_osm_node": 4095893334,
+          "distance_m": 8.617894203356725,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4826,
+          "to_node_index": 2217,
+          "from_osm_node": 4095893334,
+          "to_osm_node": 2387026471,
+          "distance_m": 26.85615077410779,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 2217,
+          "to_node_index": 2004,
+          "from_osm_node": 2387026471,
+          "to_osm_node": 2357304225,
+          "distance_m": 60.291907517153376,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 2004,
+          "to_node_index": 4803,
+          "from_osm_node": 2357304225,
+          "to_osm_node": 4095893248,
+          "distance_m": 72.29356404095435,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4803,
+          "to_node_index": 4798,
+          "from_osm_node": 4095893248,
+          "to_osm_node": 4095893237,
+          "distance_m": 21.560971310792876,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4798,
+          "to_node_index": 361,
+          "from_osm_node": 4095893237,
+          "to_osm_node": 1966250390,
+          "distance_m": 49.11921257212976,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 361,
+          "to_node_index": 4789,
+          "from_osm_node": 1966250390,
+          "to_osm_node": 4095893192,
+          "distance_m": 27.112001740660386,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4789,
+          "to_node_index": 1994,
+          "from_osm_node": 4095893192,
+          "to_osm_node": 2357304210,
+          "distance_m": 15.649458872709591,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1994,
+          "to_node_index": 4777,
+          "from_osm_node": 2357304210,
+          "to_osm_node": 4095893135,
+          "distance_m": 76.32836171643538,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4777,
+          "to_node_index": 1992,
+          "from_osm_node": 4095893135,
+          "to_osm_node": 2357304205,
+          "distance_m": 24.742580610115986,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1992,
+          "to_node_index": 1991,
+          "from_osm_node": 2357304205,
+          "to_osm_node": 2357304203,
+          "distance_m": 6.170948074205186,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1991,
+          "to_node_index": 359,
+          "from_osm_node": 2357304203,
+          "to_osm_node": 1966250372,
+          "distance_m": 79.72365548554696,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 359,
+          "to_node_index": 4758,
+          "from_osm_node": 1966250372,
+          "to_osm_node": 4095892666,
+          "distance_m": 25.388175606789726,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 4758,
+          "to_node_index": 1989,
+          "from_osm_node": 4095892666,
+          "to_osm_node": 2357304194,
+          "distance_m": 6.412176183011924,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1989,
+          "to_node_index": 1987,
+          "from_osm_node": 2357304194,
+          "to_osm_node": 2357304189,
+          "distance_m": 19.325446454428935,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1987,
+          "to_node_index": 1985,
+          "from_osm_node": 2357304189,
+          "to_osm_node": 2357304177,
+          "distance_m": 64.90053270815773,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1985,
+          "to_node_index": 1968,
+          "from_osm_node": 2357304177,
+          "to_osm_node": 2357304083,
+          "distance_m": 154.89576887844942,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 1968,
+          "to_node_index": 13640,
+          "from_osm_node": 2357304083,
+          "to_osm_node": 6810637487,
+          "distance_m": 30.64933633702231,
+          "name": "Kaulagarh Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 13640,
+          "to_node_index": 27925,
+          "from_osm_node": 6810637487,
+          "to_osm_node": 11921614348,
+          "distance_m": 39.724752436542275,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 27925,
+          "to_node_index": 26090,
+          "from_osm_node": 11921614348,
+          "to_osm_node": 10039182160,
+          "distance_m": 75.01115758696426,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 26090,
+          "to_node_index": 13661,
+          "from_osm_node": 10039182160,
+          "to_osm_node": 6810713953,
+          "distance_m": 41.86434061081148,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 13661,
+          "to_node_index": 13646,
+          "from_osm_node": 6810713953,
+          "to_osm_node": 6810637503,
+          "distance_m": 140.35902047831726,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 13646,
+          "to_node_index": 13641,
+          "from_osm_node": 6810637503,
+          "to_osm_node": 6810637488,
+          "distance_m": 591.2220349239914,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 13641,
+          "to_node_index": 27958,
+          "from_osm_node": 6810637488,
+          "to_osm_node": 11971347733,
+          "distance_m": 109.24563554960197,
+          "name": "Bindal Pul; Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 27958,
+          "to_node_index": 27956,
+          "from_osm_node": 11971347733,
+          "to_osm_node": 11971347731,
+          "distance_m": 14.834772871990582,
+          "name": "Bindal Chowk",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 27956,
+          "to_node_index": 13647,
+          "from_osm_node": 11971347731,
+          "to_osm_node": 6810637510,
+          "distance_m": 30.991806555985676,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 13647,
+          "to_node_index": 26909,
+          "from_osm_node": 6810637510,
+          "to_osm_node": 10042421918,
+          "distance_m": 76.86278650096011,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 26909,
+          "to_node_index": 3423,
+          "from_osm_node": 10042421918,
+          "to_osm_node": 3633951399,
+          "distance_m": 57.772093730504665,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 3423,
+          "to_node_index": 3424,
+          "from_osm_node": 3633951399,
+          "to_osm_node": 3633951400,
+          "distance_m": 10.968718157697285,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 3424,
+          "to_node_index": 1966,
+          "from_osm_node": 3633951400,
+          "to_osm_node": 2357303963,
+          "distance_m": 100.33742111280003,
+          "name": "Chakrata Road",
+          "highway": "secondary"
+        },
+        {
+          "from_node_index": 1966,
+          "to_node_index": 8744,
+          "from_osm_node": 2357303963,
+          "to_osm_node": 6782511610,
+          "distance_m": 232.67204071783803,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 8744,
+          "to_node_index": 13302,
+          "from_osm_node": 6782511610,
+          "to_osm_node": 6807667706,
+          "distance_m": 38.84597010254237,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 13302,
+          "to_node_index": 13298,
+          "from_osm_node": 6807667706,
+          "to_osm_node": 6807648162,
+          "distance_m": 44.18887564653213,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 13298,
+          "to_node_index": 1965,
+          "from_osm_node": 6807648162,
+          "to_osm_node": 2357303943,
+          "distance_m": 19.306965478818533,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 1965,
+          "to_node_index": 26842,
+          "from_osm_node": 2357303943,
+          "to_osm_node": 10042368378,
+          "distance_m": 25.53838601636877,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 26842,
+          "to_node_index": 28198,
+          "from_osm_node": 10042368378,
+          "to_osm_node": 14233017500,
+          "distance_m": 15.7764216808525,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 28198,
+          "to_node_index": 28208,
+          "from_osm_node": 14233017500,
+          "to_osm_node": 14241154723,
+          "distance_m": 64.51901078556246,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 28208,
+          "to_node_index": 1964,
+          "from_osm_node": 14241154723,
+          "to_osm_node": 2357303937,
+          "distance_m": 42.393369611336006,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 1964,
+          "to_node_index": 410,
+          "from_osm_node": 2357303937,
+          "to_osm_node": 2355569030,
+          "distance_m": 48.79915123052302,
+          "name": "",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 410,
+          "to_node_index": 26737,
+          "from_osm_node": 2355569030,
+          "to_osm_node": 10042112042,
+          "distance_m": 10.257635406959901,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 26737,
+          "to_node_index": 28171,
+          "from_osm_node": 10042112042,
+          "to_osm_node": 14170891152,
+          "distance_m": 31.13966257402054,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 28171,
+          "to_node_index": 28197,
+          "from_osm_node": 14170891152,
+          "to_osm_node": 14229658115,
+          "distance_m": 7.734132791467473,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 28197,
+          "to_node_index": 28185,
+          "from_osm_node": 14229658115,
+          "to_osm_node": 14182075672,
+          "distance_m": 32.83565546968498,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 28185,
+          "to_node_index": 13170,
+          "from_osm_node": 14182075672,
+          "to_osm_node": 6807496496,
+          "distance_m": 8.866814699277986,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 13170,
+          "to_node_index": 5255,
+          "from_osm_node": 6807496496,
+          "to_osm_node": 4741389131,
+          "distance_m": 69.18494224030198,
+          "name": "Kalika Marg",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 5255,
+          "to_node_index": 28168,
+          "from_osm_node": 4741389131,
+          "to_osm_node": 14161783249,
+          "distance_m": 53.12621014673605,
+          "name": "Moti Bazar Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 28168,
+          "to_node_index": 28166,
+          "from_osm_node": 14161783249,
+          "to_osm_node": 14161783164,
+          "distance_m": 35.179596158765236,
+          "name": "",
+          "highway": "living_street"
+        },
+        {
+          "from_node_index": 28166,
+          "to_node_index": 28167,
+          "from_osm_node": 14161783164,
+          "to_osm_node": 14161783182,
+          "distance_m": 15.293365203700414,
+          "name": "",
+          "highway": "living_street"
+        },
+        {
+          "from_node_index": 28167,
+          "to_node_index": 28165,
+          "from_osm_node": 14161783182,
+          "to_osm_node": 14161783123,
+          "distance_m": 33.560774338392804,
+          "name": "Paltan Bazar",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 28165,
+          "to_node_index": 244,
+          "from_osm_node": 14161783123,
+          "to_osm_node": 1217127862,
+          "distance_m": 36.544704236499925,
+          "name": "Paltan Bazar",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 244,
+          "to_node_index": 28180,
+          "from_osm_node": 1217127862,
+          "to_osm_node": 14170901287,
+          "distance_m": 49.92234742289956,
+          "name": "Paltan Bazar",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 28180,
+          "to_node_index": 245,
+          "from_osm_node": 14170901287,
+          "to_osm_node": 1217127863,
+          "distance_m": 59.829782736707855,
+          "name": "Paltan Bazar",
+          "highway": "tertiary"
+        }
+      ],
+      "visited": 7824,
+      "relaxations": 8464
+    },
+    {
+      "source_node_index": 245,
+      "target_node_index": 8616,
+      "source_osm_node": 1217127863,
+      "target_osm_node": 6699305178,
+      "distance_m": 761.5627839379221,
+      "distance_km": 0.7615627839379221,
+      "path_node_count": 15,
+      "path_node_ids": [
+        1217127863,
+        2355568999,
+        2355569002,
+        10041196074,
+        2355569007,
+        2355569008,
+        2355569012,
+        5988714911,
+        2355569022,
+        6782656133,
+        6782656138,
+        14158792370,
+        14158792377,
+        14158792399,
+        6699305178
+      ],
+      "path_coordinates": [
+        {
+          "node_index": 245,
+          "osm_node": 1217127863,
+          "latitude": 30.3203267,
+          "longitude": 78.0374293
+        },
+        {
+          "node_index": 399,
+          "osm_node": 2355568999,
+          "latitude": 30.3200951,
+          "longitude": 78.0381161
+        },
+        {
+          "node_index": 400,
+          "osm_node": 2355569002,
+          "latitude": 30.3202415,
+          "longitude": 78.0386634
+        },
+        {
+          "node_index": 26420,
+          "osm_node": 10041196074,
+          "latitude": 30.3202877,
+          "longitude": 78.0387297
+        },
+        {
+          "node_index": 403,
+          "osm_node": 2355569007,
+          "latitude": 30.3210893,
+          "longitude": 78.0395672
+        },
+        {
+          "node_index": 404,
+          "osm_node": 2355569008,
+          "latitude": 30.3212781,
+          "longitude": 78.0397634
+        },
+        {
+          "node_index": 406,
+          "osm_node": 2355569012,
+          "latitude": 30.3216687,
+          "longitude": 78.0401716
+        },
+        {
+          "node_index": 7482,
+          "osm_node": 5988714911,
+          "latitude": 30.3220248,
+          "longitude": 78.0404808
+        },
+        {
+          "node_index": 408,
+          "osm_node": 2355569022,
+          "latitude": 30.3223515,
+          "longitude": 78.0407019
+        },
+        {
+          "node_index": 8753,
+          "osm_node": 6782656133,
+          "latitude": 30.3231775,
+          "longitude": 78.0416284
+        },
+        {
+          "node_index": 8754,
+          "osm_node": 6782656138,
+          "latitude": 30.3235026,
+          "longitude": 78.0421945
+        },
+        {
+          "node_index": 28161,
+          "osm_node": 14158792370,
+          "latitude": 30.3241124,
+          "longitude": 78.0418525
+        },
+        {
+          "node_index": 28163,
+          "osm_node": 14158792377,
+          "latitude": 30.3242348,
+          "longitude": 78.0416916
+        },
+        {
+          "node_index": 28164,
+          "osm_node": 14158792399,
+          "latitude": 30.3243382,
+          "longitude": 78.0416831
+        },
+        {
+          "node_index": 8616,
+          "osm_node": 6699305178,
+          "latitude": 30.3244699,
+          "longitude": 78.0418807
+        }
+      ],
+      "road_names": [
+        "Dispensary Road",
+        "Unnamed living_street",
+        "Gandhi Road",
+        "Unnamed primary"
+      ],
+      "edge_distances": [
+        {
+          "from_node_index": 245,
+          "to_node_index": 399,
+          "from_osm_node": 1217127863,
+          "to_osm_node": 2355568999,
+          "distance_m": 72.30546770599437,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 399,
+          "to_node_index": 400,
+          "from_osm_node": 2355568999,
+          "to_osm_node": 2355569002,
+          "distance_m": 55.12572691728607,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 400,
+          "to_node_index": 26420,
+          "from_osm_node": 2355569002,
+          "to_osm_node": 10041196074,
+          "distance_m": 8.198374428568462,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 26420,
+          "to_node_index": 403,
+          "from_osm_node": 10041196074,
+          "to_osm_node": 2355569007,
+          "distance_m": 120.03077569937281,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 403,
+          "to_node_index": 404,
+          "from_osm_node": 2355569007,
+          "to_osm_node": 2355569008,
+          "distance_m": 28.20254359653607,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 404,
+          "to_node_index": 406,
+          "from_osm_node": 2355569008,
+          "to_osm_node": 2355569012,
+          "distance_m": 58.49395486119486,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 406,
+          "to_node_index": 7482,
+          "from_osm_node": 2355569012,
+          "to_osm_node": 5988714911,
+          "distance_m": 49.49522300032244,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 7482,
+          "to_node_index": 408,
+          "from_osm_node": 5988714911,
+          "to_osm_node": 2355569022,
+          "distance_m": 42.08223575654933,
+          "name": "Dispensary Road",
+          "highway": "residential"
+        },
+        {
+          "from_node_index": 408,
+          "to_node_index": 8753,
+          "from_osm_node": 2355569022,
+          "to_osm_node": 6782656133,
+          "distance_m": 128.06814342349122,
+          "name": "",
+          "highway": "living_street"
+        },
+        {
+          "from_node_index": 8753,
+          "to_node_index": 8754,
+          "from_osm_node": 6782656133,
+          "to_osm_node": 6782656138,
+          "distance_m": 65.35225652872955,
+          "name": "",
+          "highway": "living_street"
+        },
+        {
+          "from_node_index": 8754,
+          "to_node_index": 28161,
+          "from_osm_node": 6782656138,
+          "to_osm_node": 14158792370,
+          "distance_m": 75.4607534715505,
+          "name": "Gandhi Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 28161,
+          "to_node_index": 28163,
+          "from_osm_node": 14158792370,
+          "to_osm_node": 14158792377,
+          "distance_m": 21.352542896856704,
+          "name": "",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 28163,
+          "to_node_index": 28164,
+          "from_osm_node": 14158792377,
+          "to_osm_node": 14158792399,
+          "distance_m": 11.68814741160948,
+          "name": "",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 28164,
+          "to_node_index": 8616,
+          "from_osm_node": 14158792399,
+          "to_osm_node": 6699305178,
+          "distance_m": 25.70663823986024,
+          "name": "",
+          "highway": "primary"
+        }
+      ],
+      "visited": 211,
+      "relaxations": 269
+    },
+    {
+      "source_node_index": 8616,
+      "target_node_index": 27424,
+      "source_osm_node": 6699305178,
+      "target_osm_node": 10196569536,
+      "distance_m": 2899.0956546279313,
+      "distance_km": 2.8990956546279314,
+      "path_node_count": 28,
+      "path_node_ids": [
+        6699305178,
+        5616480644,
+        9170870205,
+        1710187492,
+        6725988922,
+        1171665796,
+        1203961886,
+        3639332122,
+        6774338337,
+        6699340558,
+        3633932249,
+        10026146504,
+        3633930150,
+        10013605669,
+        10013605670,
+        5989301889,
+        3633930147,
+        6699330132,
+        9697254814,
+        6810730838,
+        2378243008,
+        6805384939,
+        1231993782,
+        10026306597,
+        10026320953,
+        6785053923,
+        2142227827,
+        10196569536
+      ],
+      "path_coordinates": [
+        {
+          "node_index": 8616,
+          "osm_node": 6699305178,
+          "latitude": 30.3244699,
+          "longitude": 78.0418807
+        },
+        {
+          "node_index": 6296,
+          "osm_node": 5616480644,
+          "latitude": 30.3251422,
+          "longitude": 78.042522
+        },
+        {
+          "node_index": 14213,
+          "osm_node": 9170870205,
+          "latitude": 30.3262144,
+          "longitude": 78.0441173
+        },
+        {
+          "node_index": 338,
+          "osm_node": 1710187492,
+          "latitude": 30.3272354,
+          "longitude": 78.0453005
+        },
+        {
+          "node_index": 8626,
+          "osm_node": 6725988922,
+          "latitude": 30.327699,
+          "longitude": 78.0456024
+        },
+        {
+          "node_index": 109,
+          "osm_node": 1171665796,
+          "latitude": 30.3283289,
+          "longitude": 78.0459656
+        },
+        {
+          "node_index": 209,
+          "osm_node": 1203961886,
+          "latitude": 30.3291117,
+          "longitude": 78.0466112
+        },
+        {
+          "node_index": 3801,
+          "osm_node": 3639332122,
+          "latitude": 30.3295359,
+          "longitude": 78.0468553
+        },
+        {
+          "node_index": 8679,
+          "osm_node": 6774338337,
+          "latitude": 30.3298975,
+          "longitude": 78.0470878
+        },
+        {
+          "node_index": 8625,
+          "osm_node": 6699340558,
+          "latitude": 30.3311341,
+          "longitude": 78.0482456
+        },
+        {
+          "node_index": 3399,
+          "osm_node": 3633932249,
+          "latitude": 30.3324815,
+          "longitude": 78.0498496
+        },
+        {
+          "node_index": 21592,
+          "osm_node": 10026146504,
+          "latitude": 30.3333527,
+          "longitude": 78.0510672
+        },
+        {
+          "node_index": 3395,
+          "osm_node": 3633930150,
+          "latitude": 30.3335744,
+          "longitude": 78.0513659
+        },
+        {
+          "node_index": 17675,
+          "osm_node": 10013605669,
+          "latitude": 30.3343402,
+          "longitude": 78.0524132
+        },
+        {
+          "node_index": 17676,
+          "osm_node": 10013605670,
+          "latitude": 30.3343859,
+          "longitude": 78.0524849
+        },
+        {
+          "node_index": 7487,
+          "osm_node": 5989301889,
+          "latitude": 30.3352065,
+          "longitude": 78.0537934
+        },
+        {
+          "node_index": 3393,
+          "osm_node": 3633930147,
+          "latitude": 30.3354413,
+          "longitude": 78.0541407
+        },
+        {
+          "node_index": 8621,
+          "osm_node": 6699330132,
+          "latitude": 30.3358389,
+          "longitude": 78.0546555
+        },
+        {
+          "node_index": 15233,
+          "osm_node": 9697254814,
+          "latitude": 30.3360359,
+          "longitude": 78.0546796
+        },
+        {
+          "node_index": 13680,
+          "osm_node": 6810730838,
+          "latitude": 30.3382564,
+          "longitude": 78.0526726
+        },
+        {
+          "node_index": 2136,
+          "osm_node": 2378243008,
+          "latitude": 30.33893,
+          "longitude": 78.0521251
+        },
+        {
+          "node_index": 12453,
+          "osm_node": 6805384939,
+          "latitude": 30.3391534,
+          "longitude": 78.0519821
+        },
+        {
+          "node_index": 293,
+          "osm_node": 1231993782,
+          "latitude": 30.3402587,
+          "longitude": 78.0511551
+        },
+        {
+          "node_index": 22017,
+          "osm_node": 10026306597,
+          "latitude": 30.3404522,
+          "longitude": 78.0509653
+        },
+        {
+          "node_index": 22055,
+          "osm_node": 10026320953,
+          "latitude": 30.3411644,
+          "longitude": 78.050358
+        },
+        {
+          "node_index": 8826,
+          "osm_node": 6785053923,
+          "latitude": 30.3421177,
+          "longitude": 78.0495755
+        },
+        {
+          "node_index": 375,
+          "osm_node": 2142227827,
+          "latitude": 30.3422159,
+          "longitude": 78.0494952
+        },
+        {
+          "node_index": 27424,
+          "osm_node": 10196569536,
+          "latitude": 30.3439938,
+          "longitude": 78.0481019
+        }
+      ],
+      "road_names": [
+        "Rajpur-Mussoorie Road",
+        "Unnamed tertiary_link",
+        "New Contontment Road"
+      ],
+      "edge_distances": [
+        {
+          "from_node_index": 8616,
+          "to_node_index": 6296,
+          "from_osm_node": 6699305178,
+          "to_osm_node": 5616480644,
+          "distance_m": 97.82855490960814,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 6296,
+          "to_node_index": 14213,
+          "from_osm_node": 5616480644,
+          "to_osm_node": 9170870205,
+          "distance_m": 196.67783517569774,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 14213,
+          "to_node_index": 338,
+          "from_osm_node": 9170870205,
+          "to_osm_node": 1710187492,
+          "distance_m": 164.3575869551903,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 338,
+          "to_node_index": 8626,
+          "from_osm_node": 1710187492,
+          "to_osm_node": 6725988922,
+          "distance_m": 59.157350644762836,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 8626,
+          "to_node_index": 109,
+          "from_osm_node": 6725988922,
+          "to_osm_node": 1171665796,
+          "distance_m": 78.24295211333502,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 109,
+          "to_node_index": 209,
+          "from_osm_node": 1171665796,
+          "to_osm_node": 1203961886,
+          "distance_m": 106.84555210609585,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 209,
+          "to_node_index": 3801,
+          "from_osm_node": 1203961886,
+          "to_osm_node": 3639332122,
+          "distance_m": 52.666653720011766,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 3801,
+          "to_node_index": 8679,
+          "from_osm_node": 3639332122,
+          "to_osm_node": 6774338337,
+          "distance_m": 46.10575507755226,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 8679,
+          "to_node_index": 8625,
+          "from_osm_node": 6774338337,
+          "to_osm_node": 6699340558,
+          "distance_m": 176.91907779715854,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 8625,
+          "to_node_index": 3399,
+          "from_osm_node": 6699340558,
+          "to_osm_node": 3633932249,
+          "distance_m": 214.88774806060894,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 3399,
+          "to_node_index": 21592,
+          "from_osm_node": 3633932249,
+          "to_osm_node": 10026146504,
+          "distance_m": 151.82269113874145,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 21592,
+          "to_node_index": 3395,
+          "from_osm_node": 10026146504,
+          "to_osm_node": 3633930150,
+          "distance_m": 37.80893696418117,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 3395,
+          "to_node_index": 17675,
+          "from_osm_node": 3633930150,
+          "to_osm_node": 10013605669,
+          "distance_m": 131.78796132296026,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 17675,
+          "to_node_index": 17676,
+          "from_osm_node": 10013605669,
+          "to_osm_node": 10013605670,
+          "distance_m": 8.55413959658513,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 17676,
+          "to_node_index": 7487,
+          "from_osm_node": 10013605670,
+          "to_osm_node": 5989301889,
+          "distance_m": 155.23022393115585,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 7487,
+          "to_node_index": 3393,
+          "from_osm_node": 5989301889,
+          "to_osm_node": 3633930147,
+          "distance_m": 42.33899624882108,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 3393,
+          "to_node_index": 8621,
+          "from_osm_node": 3633930147,
+          "to_osm_node": 6699330132,
+          "distance_m": 66.29885338179129,
+          "name": "Rajpur-Mussoorie Road",
+          "highway": "primary"
+        },
+        {
+          "from_node_index": 8621,
+          "to_node_index": 15233,
+          "from_osm_node": 6699330132,
+          "to_osm_node": 9697254814,
+          "distance_m": 22.374810557888797,
+          "name": "",
+          "highway": "tertiary_link"
+        },
+        {
+          "from_node_index": 15233,
+          "to_node_index": 13680,
+          "from_osm_node": 9697254814,
+          "to_osm_node": 6810730838,
+          "distance_m": 313.77200652413836,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 13680,
+          "to_node_index": 2136,
+          "from_osm_node": 6810730838,
+          "to_osm_node": 2378243008,
+          "distance_m": 91.49630581745984,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 2136,
+          "to_node_index": 12453,
+          "from_osm_node": 2378243008,
+          "to_osm_node": 6805384939,
+          "distance_m": 28.379625955049413,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 12453,
+          "to_node_index": 293,
+          "from_osm_node": 6805384939,
+          "to_osm_node": 1231993782,
+          "distance_m": 146.97553993362257,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 293,
+          "to_node_index": 22017,
+          "from_osm_node": 1231993782,
+          "to_osm_node": 10026306597,
+          "distance_m": 28.190601698217584,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 22017,
+          "to_node_index": 22055,
+          "from_osm_node": 10026306597,
+          "to_osm_node": 10026320953,
+          "distance_m": 98.3744228656081,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 22055,
+          "to_node_index": 8826,
+          "from_osm_node": 10026320953,
+          "to_osm_node": 6785053923,
+          "distance_m": 129.9050754644397,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 8826,
+          "to_node_index": 375,
+          "from_osm_node": 6785053923,
+          "to_osm_node": 2142227827,
+          "distance_m": 13.3646336356262,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        },
+        {
+          "from_node_index": 375,
+          "to_node_index": 27424,
+          "from_osm_node": 2142227827,
+          "to_osm_node": 10196569536,
+          "distance_m": 238.7317630316227,
+          "name": "New Contontment Road",
+          "highway": "tertiary"
+        }
+      ],
+      "visited": 3005,
+      "relaxations": 3449
+    }
+  ],
+  "combined_route": {
+    "distance_m": 18015.14177738222,
+    "distance_km": 18.015141777382222,
+    "path_node_count": 176,
+    "path_node_ids": [
+      10011044543,
+      9624219887,
+      10011203856,
+      10011203867,
+      10017337946,
+      10017278077,
+      10017305363,
+      10017337919,
+      3169522570,
+      10017305375,
+      13470516671,
+      10017324073,
+      10011104081,
+      10017341021,
+      10017298421,
+      10017298439,
+      10017407106,
+      10017484807,
+      10017473671,
+      3169522949,
+      10017401011,
+      10020455702,
+      10020466214,
+      10020472433,
+      10020455689,
+      10017465875,
+      10020455651,
+      10020359124,
+      3169526939,
+      10020509653,
+      10020313615,
+      10020456959,
+      10715964505,
+      10020329047,
+      10020365282,
+      5968647808,
+      10020583072,
+      10026269576,
+      10026274300,
+      10026268488,
+      10026312662,
+      10026280124,
+      10026269595,
+      5968639282,
+      5968639273,
+      5968741491,
+      5968639265,
+      5907693017,
+      5907693040,
+      10026161219,
+      9643289954,
+      10026510153,
+      9643289950,
+      9643289949,
+      10026510122,
+      2430622937,
+      8341110551,
+      10028683248,
+      9170911145,
+      2355631016,
+      2355630983,
+      10028729099,
+      2355630986,
+      2355630989,
+      2355630997,
+      2355631004,
+      2355631007,
+      2355631020,
+      2355631028,
+      10029118430,
+      2355630975,
+      9170941594,
+      6810590045,
+      2355630938,
+      6784303983,
+      9170941580,
+      2355630909,
+      1231824680,
+      10038921216,
+      2356709376,
+      2357304234,
+      4095893352,
+      1966250384,
+      4095893334,
+      2387026471,
+      2357304225,
+      4095893248,
+      4095893237,
+      1966250390,
+      4095893192,
+      2357304210,
+      4095893135,
+      2357304205,
+      2357304203,
+      1966250372,
+      4095892666,
+      2357304194,
+      2357304189,
+      2357304177,
+      2357304083,
+      6810637487,
+      11921614348,
+      10039182160,
+      6810713953,
+      6810637503,
+      6810637488,
+      11971347733,
+      11971347731,
+      6810637510,
+      10042421918,
+      3633951399,
+      3633951400,
+      2357303963,
+      6782511610,
+      6807667706,
+      6807648162,
+      2357303943,
+      10042368378,
+      14233017500,
+      14241154723,
+      2357303937,
+      2355569030,
+      10042112042,
+      14170891152,
+      14229658115,
+      14182075672,
+      6807496496,
+      4741389131,
+      14161783249,
+      14161783164,
+      14161783182,
+      14161783123,
+      1217127862,
+      14170901287,
+      1217127863,
+      2355568999,
+      2355569002,
+      10041196074,
+      2355569007,
+      2355569008,
+      2355569012,
+      5988714911,
+      2355569022,
+      6782656133,
+      6782656138,
+      14158792370,
+      14158792377,
+      14158792399,
+      6699305178,
+      5616480644,
+      9170870205,
+      1710187492,
+      6725988922,
+      1171665796,
+      1203961886,
+      3639332122,
+      6774338337,
+      6699340558,
+      3633932249,
+      10026146504,
+      3633930150,
+      10013605669,
+      10013605670,
+      5989301889,
+      3633930147,
+      6699330132,
+      9697254814,
+      6810730838,
+      2378243008,
+      6805384939,
+      1231993782,
+      10026306597,
+      10026320953,
+      6785053923,
+      2142227827,
+      10196569536
+    ],
+    "path_coordinates": [
+      {
+        "node_index": 17437,
+        "osm_node": 10011044543,
+        "latitude": 30.4093114,
+        "longitude": 77.9694362
+      },
+      {
+        "node_index": 14964,
+        "osm_node": 9624219887,
+        "latitude": 30.4075815,
+        "longitude": 77.9700337
+      },
+      {
+        "node_index": 17497,
+        "osm_node": 10011203856,
+        "latitude": 30.4049682,
+        "longitude": 77.9698086
+      },
+      {
+        "node_index": 17499,
+        "osm_node": 10011203867,
+        "latitude": 30.4045068,
+        "longitude": 77.9696752
+      },
+      {
+        "node_index": 17927,
+        "osm_node": 10017337946,
+        "latitude": 30.4042157,
+        "longitude": 77.9695718
+      },
+      {
+        "node_index": 17712,
+        "osm_node": 10017278077,
+        "latitude": 30.4023825,
+        "longitude": 77.9689781
+      },
+      {
+        "node_index": 17839,
+        "osm_node": 10017305363,
+        "latitude": 30.3997383,
+        "longitude": 77.9693441
+      },
+      {
+        "node_index": 17923,
+        "osm_node": 10017337919,
+        "latitude": 30.3986146,
+        "longitude": 77.9692095
+      },
+      {
+        "node_index": 3116,
+        "osm_node": 3169522570,
+        "latitude": 30.3982589,
+        "longitude": 77.9691565
+      },
+      {
+        "node_index": 17841,
+        "osm_node": 10017305375,
+        "latitude": 30.3969578,
+        "longitude": 77.9689468
+      },
+      {
+        "node_index": 28085,
+        "osm_node": 13470516671,
+        "latitude": 30.3958944,
+        "longitude": 77.968811
+      },
+      {
+        "node_index": 17876,
+        "osm_node": 10017324073,
+        "latitude": 30.3953304,
+        "longitude": 77.9687155
+      },
+      {
+        "node_index": 17469,
+        "osm_node": 10011104081,
+        "latitude": 30.3945266,
+        "longitude": 77.9684509
+      },
+      {
+        "node_index": 17946,
+        "osm_node": 10017341021,
+        "latitude": 30.3940654,
+        "longitude": 77.9683293
+      },
+      {
+        "node_index": 17789,
+        "osm_node": 10017298421,
+        "latitude": 30.3928862,
+        "longitude": 77.9681193
+      },
+      {
+        "node_index": 17792,
+        "osm_node": 10017298439,
+        "latitude": 30.3913648,
+        "longitude": 77.9689231
+      },
+      {
+        "node_index": 18057,
+        "osm_node": 10017407106,
+        "latitude": 30.390728,
+        "longitude": 77.9691709
+      },
+      {
+        "node_index": 18172,
+        "osm_node": 10017484807,
+        "latitude": 30.3894176,
+        "longitude": 77.9695656
+      },
+      {
+        "node_index": 18168,
+        "osm_node": 10017473671,
+        "latitude": 30.3889863,
+        "longitude": 77.9697121
+      },
+      {
+        "node_index": 3126,
+        "osm_node": 3169522949,
+        "latitude": 30.3886125,
+        "longitude": 77.969744
+      },
+      {
+        "node_index": 18055,
+        "osm_node": 10017401011,
+        "latitude": 30.3874261,
+        "longitude": 77.9706962
+      },
+      {
+        "node_index": 19855,
+        "osm_node": 10020455702,
+        "latitude": 30.3798149,
+        "longitude": 77.9764375
+      },
+      {
+        "node_index": 19879,
+        "osm_node": 10020466214,
+        "latitude": 30.3794353,
+        "longitude": 77.976281
+      },
+      {
+        "node_index": 19883,
+        "osm_node": 10020472433,
+        "latitude": 30.3791212,
+        "longitude": 77.9761319
+      },
+      {
+        "node_index": 19854,
+        "osm_node": 10020455689,
+        "latitude": 30.3772801,
+        "longitude": 77.976179
+      },
+      {
+        "node_index": 18150,
+        "osm_node": 10017465875,
+        "latitude": 30.3763163,
+        "longitude": 77.9763753
+      },
+      {
+        "node_index": 19850,
+        "osm_node": 10020455651,
+        "latitude": 30.3762845,
+        "longitude": 77.976382
+      },
+      {
+        "node_index": 19750,
+        "osm_node": 10020359124,
+        "latitude": 30.3753054,
+        "longitude": 77.9773843
+      },
+      {
+        "node_index": 3138,
+        "osm_node": 3169526939,
+        "latitude": 30.3749786,
+        "longitude": 77.9777582
+      },
+      {
+        "node_index": 19948,
+        "osm_node": 10020509653,
+        "latitude": 30.3741961,
+        "longitude": 77.9786203
+      },
+      {
+        "node_index": 19729,
+        "osm_node": 10020313615,
+        "latitude": 30.3739778,
+        "longitude": 77.9788931
+      },
+      {
+        "node_index": 19856,
+        "osm_node": 10020456959,
+        "latitude": 30.3737835,
+        "longitude": 77.9791352
+      },
+      {
+        "node_index": 27681,
+        "osm_node": 10715964505,
+        "latitude": 30.3728391,
+        "longitude": 77.9802579
+      },
+      {
+        "node_index": 19739,
+        "osm_node": 10020329047,
+        "latitude": 30.3728114,
+        "longitude": 77.980292
+      },
+      {
+        "node_index": 19756,
+        "osm_node": 10020365282,
+        "latitude": 30.3723719,
+        "longitude": 77.9808263
+      },
+      {
+        "node_index": 7036,
+        "osm_node": 5968647808,
+        "latitude": 30.3720722,
+        "longitude": 77.9811455
+      },
+      {
+        "node_index": 20100,
+        "osm_node": 10020583072,
+        "latitude": 30.371577,
+        "longitude": 77.9814707
+      },
+      {
+        "node_index": 21945,
+        "osm_node": 10026269576,
+        "latitude": 30.3696023,
+        "longitude": 77.9821229
+      },
+      {
+        "node_index": 21958,
+        "osm_node": 10026274300,
+        "latitude": 30.3693585,
+        "longitude": 77.9821999
+      },
+      {
+        "node_index": 21925,
+        "osm_node": 10026268488,
+        "latitude": 30.3687303,
+        "longitude": 77.9824101
+      },
+      {
+        "node_index": 22036,
+        "osm_node": 10026312662,
+        "latitude": 30.3680994,
+        "longitude": 77.9825964
+      },
+      {
+        "node_index": 21989,
+        "osm_node": 10026280124,
+        "latitude": 30.3651175,
+        "longitude": 77.9826166
+      },
+      {
+        "node_index": 21951,
+        "osm_node": 10026269595,
+        "latitude": 30.3634108,
+        "longitude": 77.9832193
+      },
+      {
+        "node_index": 7035,
+        "osm_node": 5968639282,
+        "latitude": 30.3627835,
+        "longitude": 77.9840285
+      },
+      {
+        "node_index": 7034,
+        "osm_node": 5968639273,
+        "latitude": 30.3615355,
+        "longitude": 77.9848194
+      },
+      {
+        "node_index": 7053,
+        "osm_node": 5968741491,
+        "latitude": 30.3596965,
+        "longitude": 77.9863765
+      },
+      {
+        "node_index": 7033,
+        "osm_node": 5968639265,
+        "latitude": 30.3586541,
+        "longitude": 77.9874144
+      },
+      {
+        "node_index": 6860,
+        "osm_node": 5907693017,
+        "latitude": 30.3583159,
+        "longitude": 77.9891029
+      },
+      {
+        "node_index": 6862,
+        "osm_node": 5907693040,
+        "latitude": 30.3576936,
+        "longitude": 77.989697
+      },
+      {
+        "node_index": 21669,
+        "osm_node": 10026161219,
+        "latitude": 30.3562296,
+        "longitude": 77.9911818
+      },
+      {
+        "node_index": 15117,
+        "osm_node": 9643289954,
+        "latitude": 30.3546385,
+        "longitude": 77.9922692
+      },
+      {
+        "node_index": 22192,
+        "osm_node": 10026510153,
+        "latitude": 30.354548,
+        "longitude": 77.9923336
+      },
+      {
+        "node_index": 15115,
+        "osm_node": 9643289950,
+        "latitude": 30.3542053,
+        "longitude": 77.9924686
+      },
+      {
+        "node_index": 15114,
+        "osm_node": 9643289949,
+        "latitude": 30.3539557,
+        "longitude": 77.992681
+      },
+      {
+        "node_index": 22189,
+        "osm_node": 10026510122,
+        "latitude": 30.3534166,
+        "longitude": 77.9935145
+      },
+      {
+        "node_index": 2623,
+        "osm_node": 2430622937,
+        "latitude": 30.3515407,
+        "longitude": 77.9931752
+      },
+      {
+        "node_index": 13952,
+        "osm_node": 8341110551,
+        "latitude": 30.351418,
+        "longitude": 77.9936637
+      },
+      {
+        "node_index": 22719,
+        "osm_node": 10028683248,
+        "latitude": 30.3510005,
+        "longitude": 78.0011702
+      },
+      {
+        "node_index": 14273,
+        "osm_node": 9170911145,
+        "latitude": 30.3502343,
+        "longitude": 78.0021582
+      },
+      {
+        "node_index": 520,
+        "osm_node": 2355631016,
+        "latitude": 30.3499901,
+        "longitude": 78.0024841
+      },
+      {
+        "node_index": 507,
+        "osm_node": 2355630983,
+        "latitude": 30.3489611,
+        "longitude": 78.0038808
+      },
+      {
+        "node_index": 22769,
+        "osm_node": 10028729099,
+        "latitude": 30.3488351,
+        "longitude": 78.004049
+      },
+      {
+        "node_index": 508,
+        "osm_node": 2355630986,
+        "latitude": 30.3491215,
+        "longitude": 78.0056455
+      },
+      {
+        "node_index": 509,
+        "osm_node": 2355630989,
+        "latitude": 30.3493195,
+        "longitude": 78.005958
+      },
+      {
+        "node_index": 510,
+        "osm_node": 2355630997,
+        "latitude": 30.349509,
+        "longitude": 78.0064252
+      },
+      {
+        "node_index": 513,
+        "osm_node": 2355631004,
+        "latitude": 30.3496352,
+        "longitude": 78.006728
+      },
+      {
+        "node_index": 515,
+        "osm_node": 2355631007,
+        "latitude": 30.3497482,
+        "longitude": 78.0068876
+      },
+      {
+        "node_index": 522,
+        "osm_node": 2355631020,
+        "latitude": 30.3500347,
+        "longitude": 78.0073484
+      },
+      {
+        "node_index": 527,
+        "osm_node": 2355631028,
+        "latitude": 30.3500989,
+        "longitude": 78.0075629
+      },
+      {
+        "node_index": 23474,
+        "osm_node": 10029118430,
+        "latitude": 30.349545,
+        "longitude": 78.0081988
+      },
+      {
+        "node_index": 503,
+        "osm_node": 2355630975,
+        "latitude": 30.348686,
+        "longitude": 78.0090567
+      },
+      {
+        "node_index": 14304,
+        "osm_node": 9170941594,
+        "latitude": 30.3480912,
+        "longitude": 78.0095967
+      },
+      {
+        "node_index": 13619,
+        "osm_node": 6810590045,
+        "latitude": 30.3480415,
+        "longitude": 78.0096338
+      },
+      {
+        "node_index": 495,
+        "osm_node": 2355630938,
+        "latitude": 30.3467774,
+        "longitude": 78.0109891
+      },
+      {
+        "node_index": 8787,
+        "osm_node": 6784303983,
+        "latitude": 30.3455297,
+        "longitude": 78.0124148
+      },
+      {
+        "node_index": 14297,
+        "osm_node": 9170941580,
+        "latitude": 30.3443093,
+        "longitude": 78.0137873
+      },
+      {
+        "node_index": 493,
+        "osm_node": 2355630909,
+        "latitude": 30.3433627,
+        "longitude": 78.0148607
+      },
+      {
+        "node_index": 270,
+        "osm_node": 1231824680,
+        "latitude": 30.3420829,
+        "longitude": 78.0163148
+      },
+      {
+        "node_index": 25766,
+        "osm_node": 10038921216,
+        "latitude": 30.3420492,
+        "longitude": 78.016354
+      },
+      {
+        "node_index": 801,
+        "osm_node": 2356709376,
+        "latitude": 30.3393483,
+        "longitude": 78.0194379
+      },
+      {
+        "node_index": 2010,
+        "osm_node": 2357304234,
+        "latitude": 30.338895,
+        "longitude": 78.0200106
+      },
+      {
+        "node_index": 4835,
+        "osm_node": 4095893352,
+        "latitude": 30.3388425,
+        "longitude": 78.020077
+      },
+      {
+        "node_index": 360,
+        "osm_node": 1966250384,
+        "latitude": 30.3383373,
+        "longitude": 78.0207154
+      },
+      {
+        "node_index": 4826,
+        "osm_node": 4095893334,
+        "latitude": 30.3382856,
+        "longitude": 78.0207823
+      },
+      {
+        "node_index": 2217,
+        "osm_node": 2387026471,
+        "latitude": 30.3381246,
+        "longitude": 78.0209909
+      },
+      {
+        "node_index": 2004,
+        "osm_node": 2357304225,
+        "latitude": 30.3377529,
+        "longitude": 78.0214483
+      },
+      {
+        "node_index": 4803,
+        "osm_node": 4095893248,
+        "latitude": 30.3373117,
+        "longitude": 78.0220016
+      },
+      {
+        "node_index": 4798,
+        "osm_node": 4095893237,
+        "latitude": 30.3371801,
+        "longitude": 78.0221666
+      },
+      {
+        "node_index": 361,
+        "osm_node": 1966250390,
+        "latitude": 30.3368803,
+        "longitude": 78.0225425
+      },
+      {
+        "node_index": 4789,
+        "osm_node": 4095893192,
+        "latitude": 30.3367154,
+        "longitude": 78.0227506
+      },
+      {
+        "node_index": 1994,
+        "osm_node": 2357304210,
+        "latitude": 30.3366202,
+        "longitude": 78.0228707
+      },
+      {
+        "node_index": 4777,
+        "osm_node": 4095893135,
+        "latitude": 30.3361559,
+        "longitude": 78.0234565
+      },
+      {
+        "node_index": 1992,
+        "osm_node": 2357304205,
+        "latitude": 30.3360054,
+        "longitude": 78.0236464
+      },
+      {
+        "node_index": 1991,
+        "osm_node": 2357304203,
+        "latitude": 30.3359679,
+        "longitude": 78.0236938
+      },
+      {
+        "node_index": 359,
+        "osm_node": 1966250372,
+        "latitude": 30.3354918,
+        "longitude": 78.0243149
+      },
+      {
+        "node_index": 4758,
+        "osm_node": 4095892666,
+        "latitude": 30.3353534,
+        "longitude": 78.0245253
+      },
+      {
+        "node_index": 1989,
+        "osm_node": 2357304194,
+        "latitude": 30.3353184,
+        "longitude": 78.0245784
+      },
+      {
+        "node_index": 1987,
+        "osm_node": 2357304189,
+        "latitude": 30.3352131,
+        "longitude": 78.0247386
+      },
+      {
+        "node_index": 1985,
+        "osm_node": 2357304177,
+        "latitude": 30.3348273,
+        "longitude": 78.0252447
+      },
+      {
+        "node_index": 1968,
+        "osm_node": 2357304083,
+        "latitude": 30.333813,
+        "longitude": 78.0263442
+      },
+      {
+        "node_index": 13640,
+        "osm_node": 6810637487,
+        "latitude": 30.3335788,
+        "longitude": 78.0265126
+      },
+      {
+        "node_index": 27925,
+        "osm_node": 11921614348,
+        "latitude": 30.3333533,
+        "longitude": 78.0268327
+      },
+      {
+        "node_index": 26090,
+        "osm_node": 10039182160,
+        "latitude": 30.3329132,
+        "longitude": 78.027425
+      },
+      {
+        "node_index": 13661,
+        "osm_node": 6810713953,
+        "latitude": 30.3326694,
+        "longitude": 78.0277574
+      },
+      {
+        "node_index": 13646,
+        "osm_node": 6810637503,
+        "latitude": 30.331756,
+        "longitude": 78.0287582
+      },
+      {
+        "node_index": 13641,
+        "osm_node": 6810637488,
+        "latitude": 30.3275747,
+        "longitude": 78.0325616
+      },
+      {
+        "node_index": 27958,
+        "osm_node": 11971347733,
+        "latitude": 30.3268036,
+        "longitude": 78.0332668
+      },
+      {
+        "node_index": 27956,
+        "osm_node": 11971347731,
+        "latitude": 30.326716,
+        "longitude": 78.0333507
+      },
+      {
+        "node_index": 13647,
+        "osm_node": 6810637510,
+        "latitude": 30.326579,
+        "longitude": 78.0336319
+      },
+      {
+        "node_index": 26909,
+        "osm_node": 10042421918,
+        "latitude": 30.3263383,
+        "longitude": 78.0343797
+      },
+      {
+        "node_index": 3423,
+        "osm_node": 3633951399,
+        "latitude": 30.3262693,
+        "longitude": 78.034976
+      },
+      {
+        "node_index": 3424,
+        "osm_node": 3633951400,
+        "latitude": 30.326172,
+        "longitude": 78.0349572
+      },
+      {
+        "node_index": 1966,
+        "osm_node": 2357303963,
+        "latitude": 30.326342,
+        "longitude": 78.0339326
+      },
+      {
+        "node_index": 8744,
+        "osm_node": 6782511610,
+        "latitude": 30.3249974,
+        "longitude": 78.0357835
+      },
+      {
+        "node_index": 13302,
+        "osm_node": 6807667706,
+        "latitude": 30.3247444,
+        "longitude": 78.0360624
+      },
+      {
+        "node_index": 13298,
+        "osm_node": 6807648162,
+        "latitude": 30.3244372,
+        "longitude": 78.0363544
+      },
+      {
+        "node_index": 1965,
+        "osm_node": 2357303943,
+        "latitude": 30.3243069,
+        "longitude": 78.0364872
+      },
+      {
+        "node_index": 26842,
+        "osm_node": 10042368378,
+        "latitude": 30.3241523,
+        "longitude": 78.0366839
+      },
+      {
+        "node_index": 28198,
+        "osm_node": 14233017500,
+        "latitude": 30.3240577,
+        "longitude": 78.0368064
+      },
+      {
+        "node_index": 28208,
+        "osm_node": 14241154723,
+        "latitude": 30.3237939,
+        "longitude": 78.0373944
+      },
+      {
+        "node_index": 1964,
+        "osm_node": 2357303937,
+        "latitude": 30.323646,
+        "longitude": 78.0378004
+      },
+      {
+        "node_index": 410,
+        "osm_node": 2355569030,
+        "latitude": 30.3232556,
+        "longitude": 78.0380274
+      },
+      {
+        "node_index": 26737,
+        "osm_node": 10042112042,
+        "latitude": 30.3231743,
+        "longitude": 78.0380779
+      },
+      {
+        "node_index": 28171,
+        "osm_node": 14170891152,
+        "latitude": 30.3229294,
+        "longitude": 78.0382351
+      },
+      {
+        "node_index": 28197,
+        "osm_node": 14229658115,
+        "latitude": 30.3228702,
+        "longitude": 78.0382774
+      },
+      {
+        "node_index": 28185,
+        "osm_node": 14182075672,
+        "latitude": 30.3226185,
+        "longitude": 78.0384563
+      },
+      {
+        "node_index": 13170,
+        "osm_node": 6807496496,
+        "latitude": 30.3225498,
+        "longitude": 78.0385032
+      },
+      {
+        "node_index": 5255,
+        "osm_node": 4741389131,
+        "latitude": 30.3219986,
+        "longitude": 78.0388371
+      },
+      {
+        "node_index": 28168,
+        "osm_node": 14161783249,
+        "latitude": 30.3218606,
+        "longitude": 78.0383072
+      },
+      {
+        "node_index": 28166,
+        "osm_node": 14161783164,
+        "latitude": 30.3216336,
+        "longitude": 78.0385625
+      },
+      {
+        "node_index": 28167,
+        "osm_node": 14161783182,
+        "latitude": 30.3215341,
+        "longitude": 78.0386725
+      },
+      {
+        "node_index": 28165,
+        "osm_node": 14161783123,
+        "latitude": 30.3213232,
+        "longitude": 78.0384224
+      },
+      {
+        "node_index": 244,
+        "osm_node": 1217127862,
+        "latitude": 30.3210883,
+        "longitude": 78.0381562
+      },
+      {
+        "node_index": 28180,
+        "osm_node": 14170901287,
+        "latitude": 30.3207412,
+        "longitude": 78.0378265
+      },
+      {
+        "node_index": 245,
+        "osm_node": 1217127863,
+        "latitude": 30.3203267,
+        "longitude": 78.0374293
+      },
+      {
+        "node_index": 399,
+        "osm_node": 2355568999,
+        "latitude": 30.3200951,
+        "longitude": 78.0381161
+      },
+      {
+        "node_index": 400,
+        "osm_node": 2355569002,
+        "latitude": 30.3202415,
+        "longitude": 78.0386634
+      },
+      {
+        "node_index": 26420,
+        "osm_node": 10041196074,
+        "latitude": 30.3202877,
+        "longitude": 78.0387297
+      },
+      {
+        "node_index": 403,
+        "osm_node": 2355569007,
+        "latitude": 30.3210893,
+        "longitude": 78.0395672
+      },
+      {
+        "node_index": 404,
+        "osm_node": 2355569008,
+        "latitude": 30.3212781,
+        "longitude": 78.0397634
+      },
+      {
+        "node_index": 406,
+        "osm_node": 2355569012,
+        "latitude": 30.3216687,
+        "longitude": 78.0401716
+      },
+      {
+        "node_index": 7482,
+        "osm_node": 5988714911,
+        "latitude": 30.3220248,
+        "longitude": 78.0404808
+      },
+      {
+        "node_index": 408,
+        "osm_node": 2355569022,
+        "latitude": 30.3223515,
+        "longitude": 78.0407019
+      },
+      {
+        "node_index": 8753,
+        "osm_node": 6782656133,
+        "latitude": 30.3231775,
+        "longitude": 78.0416284
+      },
+      {
+        "node_index": 8754,
+        "osm_node": 6782656138,
+        "latitude": 30.3235026,
+        "longitude": 78.0421945
+      },
+      {
+        "node_index": 28161,
+        "osm_node": 14158792370,
+        "latitude": 30.3241124,
+        "longitude": 78.0418525
+      },
+      {
+        "node_index": 28163,
+        "osm_node": 14158792377,
+        "latitude": 30.3242348,
+        "longitude": 78.0416916
+      },
+      {
+        "node_index": 28164,
+        "osm_node": 14158792399,
+        "latitude": 30.3243382,
+        "longitude": 78.0416831
+      },
+      {
+        "node_index": 8616,
+        "osm_node": 6699305178,
+        "latitude": 30.3244699,
+        "longitude": 78.0418807
+      },
+      {
+        "node_index": 6296,
+        "osm_node": 5616480644,
+        "latitude": 30.3251422,
+        "longitude": 78.042522
+      },
+      {
+        "node_index": 14213,
+        "osm_node": 9170870205,
+        "latitude": 30.3262144,
+        "longitude": 78.0441173
+      },
+      {
+        "node_index": 338,
+        "osm_node": 1710187492,
+        "latitude": 30.3272354,
+        "longitude": 78.0453005
+      },
+      {
+        "node_index": 8626,
+        "osm_node": 6725988922,
+        "latitude": 30.327699,
+        "longitude": 78.0456024
+      },
+      {
+        "node_index": 109,
+        "osm_node": 1171665796,
+        "latitude": 30.3283289,
+        "longitude": 78.0459656
+      },
+      {
+        "node_index": 209,
+        "osm_node": 1203961886,
+        "latitude": 30.3291117,
+        "longitude": 78.0466112
+      },
+      {
+        "node_index": 3801,
+        "osm_node": 3639332122,
+        "latitude": 30.3295359,
+        "longitude": 78.0468553
+      },
+      {
+        "node_index": 8679,
+        "osm_node": 6774338337,
+        "latitude": 30.3298975,
+        "longitude": 78.0470878
+      },
+      {
+        "node_index": 8625,
+        "osm_node": 6699340558,
+        "latitude": 30.3311341,
+        "longitude": 78.0482456
+      },
+      {
+        "node_index": 3399,
+        "osm_node": 3633932249,
+        "latitude": 30.3324815,
+        "longitude": 78.0498496
+      },
+      {
+        "node_index": 21592,
+        "osm_node": 10026146504,
+        "latitude": 30.3333527,
+        "longitude": 78.0510672
+      },
+      {
+        "node_index": 3395,
+        "osm_node": 3633930150,
+        "latitude": 30.3335744,
+        "longitude": 78.0513659
+      },
+      {
+        "node_index": 17675,
+        "osm_node": 10013605669,
+        "latitude": 30.3343402,
+        "longitude": 78.0524132
+      },
+      {
+        "node_index": 17676,
+        "osm_node": 10013605670,
+        "latitude": 30.3343859,
+        "longitude": 78.0524849
+      },
+      {
+        "node_index": 7487,
+        "osm_node": 5989301889,
+        "latitude": 30.3352065,
+        "longitude": 78.0537934
+      },
+      {
+        "node_index": 3393,
+        "osm_node": 3633930147,
+        "latitude": 30.3354413,
+        "longitude": 78.0541407
+      },
+      {
+        "node_index": 8621,
+        "osm_node": 6699330132,
+        "latitude": 30.3358389,
+        "longitude": 78.0546555
+      },
+      {
+        "node_index": 15233,
+        "osm_node": 9697254814,
+        "latitude": 30.3360359,
+        "longitude": 78.0546796
+      },
+      {
+        "node_index": 13680,
+        "osm_node": 6810730838,
+        "latitude": 30.3382564,
+        "longitude": 78.0526726
+      },
+      {
+        "node_index": 2136,
+        "osm_node": 2378243008,
+        "latitude": 30.33893,
+        "longitude": 78.0521251
+      },
+      {
+        "node_index": 12453,
+        "osm_node": 6805384939,
+        "latitude": 30.3391534,
+        "longitude": 78.0519821
+      },
+      {
+        "node_index": 293,
+        "osm_node": 1231993782,
+        "latitude": 30.3402587,
+        "longitude": 78.0511551
+      },
+      {
+        "node_index": 22017,
+        "osm_node": 10026306597,
+        "latitude": 30.3404522,
+        "longitude": 78.0509653
+      },
+      {
+        "node_index": 22055,
+        "osm_node": 10026320953,
+        "latitude": 30.3411644,
+        "longitude": 78.050358
+      },
+      {
+        "node_index": 8826,
+        "osm_node": 6785053923,
+        "latitude": 30.3421177,
+        "longitude": 78.0495755
+      },
+      {
+        "node_index": 375,
+        "osm_node": 2142227827,
+        "latitude": 30.3422159,
+        "longitude": 78.0494952
+      },
+      {
+        "node_index": 27424,
+        "osm_node": 10196569536,
+        "latitude": 30.3439938,
+        "longitude": 78.0481019
+      }
+    ],
+    "road_names": [
+      "Unnamed tertiary",
+      "Unnamed unclassified",
+      "Kaulagarh Road",
+      "Unnamed unclassified",
+      "Kaulagarh Road",
+      "Chakrata Road",
+      "Bindal Pul; Chakrata Road",
+      "Bindal Chowk",
+      "Chakrata Road",
+      "Unnamed residential",
+      "Chakrata Road",
+      "Unnamed residential",
+      "Kalika Marg",
+      "Moti Bazar Road",
+      "Unnamed living_street",
+      "Paltan Bazar",
+      "Dispensary Road",
+      "Unnamed living_street",
+      "Gandhi Road",
+      "Unnamed primary",
+      "Rajpur-Mussoorie Road",
+      "Unnamed tertiary_link",
+      "New Contontment Road"
+    ]
+  },
+  "benchmark": null
+}

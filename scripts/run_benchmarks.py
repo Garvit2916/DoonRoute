@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -13,13 +14,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from cython_dijkstra import CythonDijkstra
 
-from benchmark import Timing, measure_call, networkx_from_adjacency, synthetic_adjacency
+from benchmark import Timing, measure_call, synthetic_adjacency
+from graph_loader import load_graph
+from json_export import build_route_document
 from python_dijkstra import PythonDijkstra
 from routing import (
-    NetworkXDijkstra,
-    load_graph,
     location_by_role,
     read_locations,
+    route_waypoints,
     snap_locations,
     write_binary_adjacency,
     write_binary_graph,
@@ -33,9 +35,9 @@ RESULTS = ROOT / "results"
 BINARY_GRAPH = PROCESSED / "graph.bin"
 REPETITIONS = 10
 WARMUPS = 3
-IMPLEMENTATIONS = ["python", "cpp"]
-COLORS = {"python": "#4c78a8", "cpp": "#2e7d32"}
-IMPL_LABELS = {"python": "CPython (heapq)", "cpp": "Native C++17 (Cython)"}
+IMPLEMENTATIONS = ["python", "cython"]
+COLORS = {"python": "#4c78a8", "cython": "#2e7d32"}
+IMPL_LABELS = {"python": "Python", "cython": "Cython"}
 LEG_LABELS = {"A-B": "A to B", "B-C": "B to C", "C-D": "C to D"}
 
 
@@ -69,9 +71,38 @@ def row(
         ),
         "speedup_vs_python": 1.0,
         "timing_method": timing_method,
-        "wrapper_overhead_included": "yes"
-        if timing_method == "cpp_end_to_end"
-        else "no",
+        "wrapper_overhead_included": "no",
+    }
+
+
+def workflow_row(
+    case: str,
+    implementation: str,
+    graph_nodes: int,
+    graph_edges: int,
+    source: int,
+    target: int,
+    times_ms: list[float],
+    distance_m: float,
+) -> dict[str, Any]:
+    return {
+        "benchmark_type": "workflow",
+        "case": case,
+        "implementation": implementation,
+        "graph_nodes": graph_nodes,
+        "graph_edges": graph_edges,
+        "source": source,
+        "target": target,
+        "repetitions": REPETITIONS,
+        "warmups": WARMUPS,
+        "median_ms": round(float(np.median(times_ms)), 6),
+        "min_ms": round(min(times_ms), 6),
+        "distance_m": round(float(distance_m), 6),
+        "visited": "",
+        "relaxations": "",
+        "speedup_vs_python": 1.0,
+        "timing_method": "perf_counter_ns_workflow",
+        "wrapper_overhead_included": "yes",
     }
 
 
@@ -80,43 +111,63 @@ def add_speedups(rows: list[dict[str, Any]]) -> None:
     for item in rows:
         groups.setdefault((item["benchmark_type"], item["case"]), []).append(item)
     for group in groups.values():
-        if any(item["implementation"] == "python" for item in group):
-            python_row = next(
-                item for item in group if item["implementation"] == "python"
-            )
-            python_median = float(python_row["median_ms"])
-        else:
-            base_case = str(group[0]["case"]).removesuffix(" (end-to-end)")
-            python_row = next(
-                item
-                for item in rows
-                if item["benchmark_type"] == group[0]["benchmark_type"]
-                and item["case"] == base_case
-                and item["implementation"] == "python"
-            )
-            python_median = float(python_row["median_ms"])
-
+        python_row = next(
+            (item for item in group if item["implementation"] == "python"),
+            None,
+        )
+        if python_row is None:
+            continue
+        python_median = float(python_row["median_ms"])
         for item in group:
             item["speedup_vs_python"] = round(
                 python_median / float(item["median_ms"]), 4
             )
 
 
-def measure_cpp(cpp: CythonDijkstra, source: int, target: int) -> Timing:
+def measure_workflow(
+    solver: Any,
+    graph: Any,
+    locations: list[Any],
+) -> tuple[Any, list[float]]:
+    waypoint_metadata = [
+        {
+            "name": location.name,
+            "original_latitude": location.latitude,
+            "original_longitude": location.longitude,
+            "snap_distance_m": location.snap_distance_m,
+        }
+        for location in locations
+    ]
     for _ in range(WARMUPS):
-        cpp.shortest_path(source, target)
-    times = cpp.benchmark(source, target, REPETITIONS)
-    result = cpp.shortest_path(source, target)
-    return Timing(result, times)
+        snapped = snap_locations(graph, locations)
+        route_waypoints(
+            solver,
+            graph,
+            [location.node_index for location in snapped],
+        )
 
-
-def measure_cpp_end_to_end(cpp: CythonDijkstra, source: int, target: int) -> Timing:
-    for _ in range(WARMUPS):
-        cpp.shortest_path(source, target)
-    return measure_call(
-        lambda source=source, target=target: cpp.shortest_path(source, target),
-        repetitions=REPETITIONS,
-    )
+    times: list[float] = []
+    route = None
+    for _ in range(REPETITIONS):
+        started = time.perf_counter_ns()
+        snapped = snap_locations(graph, locations)
+        route = route_waypoints(
+            solver,
+            graph,
+            [location.node_index for location in snapped],
+        )
+        build_route_document(
+            graph=graph,
+            route=route,
+            waypoints=waypoint_metadata,
+            algorithm="workflow",
+            execution_time_ms=0.0,
+            dataset_path=str(GRAPH_PATH.relative_to(ROOT)),
+        )
+        times.append((time.perf_counter_ns() - started) / 1_000_000.0)
+    if route is None:
+        raise RuntimeError("Workflow benchmark did not produce a route.")
+    return route, times
 
 
 def add_overall_rows(
@@ -190,13 +241,13 @@ def plot_execution_time(rows: list[dict[str, Any]], output: Path) -> None:
                 ha="center",
                 va="bottom",
                 fontsize=8.5,
-                fontweight="medium",
+                fontweight="normal",
             )
     axis.set_yscale("log")
     axis.set_xticks(positions, list(LEG_LABELS.values()))
     axis.set_ylabel("Median execution time (ms, log scale)", fontsize=10)
     axis.set_title(
-        "Execution Time Comparison: CPython vs. Native C++17",
+        "Execution Time Comparison: Python vs. Cython",
         fontsize=11,
         fontweight="bold",
     )
@@ -238,7 +289,7 @@ def plot_overall(rows: list[dict[str, Any]], output: Path) -> None:
             ha="center",
             va="bottom",
             fontsize=9.5,
-            fontweight="medium",
+            fontweight="normal",
         )
     speedup = float(
         next(
@@ -246,13 +297,13 @@ def plot_overall(rows: list[dict[str, Any]], output: Path) -> None:
             for item in rows
             if item["benchmark_type"] == "real"
             and item["case"] == "overall"
-            and item["implementation"] == "cpp"
+            and item["implementation"] == "cython"
         )
     )
     axis.text(
         0.5,
         0.88,
-        f"Native C++ Speedup: {speedup:.2f}×",
+        f"Cython Speedup: {speedup:.2f}×",
         transform=axis.transAxes,
         ha="center",
         fontsize=10,
@@ -292,7 +343,7 @@ def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
                 for item in rows
                 if item["benchmark_type"] == "real"
                 and item["case"] == case
-                and item["implementation"] == "cpp"
+                and item["implementation"] == "cython"
             )
         )
         for case in cases
@@ -301,7 +352,7 @@ def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
         positions,
         values,
         width,
-        label="Native C++ vs. CPython",
+        label="Cython vs. Python",
         color="#2e7d32",
     )
     for bar, value in zip(bars, values, strict=True):
@@ -312,12 +363,12 @@ def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
             ha="center",
             va="bottom",
             fontsize=9.5,
-            fontweight="medium",
+            fontweight="normal",
         )
     axis.set_xticks(positions, labels)
-    axis.set_ylabel("Speedup relative to CPython (×)", fontsize=10)
+    axis.set_ylabel("Speedup relative to Python (×)", fontsize=10)
     axis.set_title(
-        "Native C++ Speedup vs. CPython (Ratio of Medians)",
+        "Cython Speedup vs. Python (Ratio of Medians)",
         fontsize=11,
         fontweight="bold",
     )
@@ -327,7 +378,7 @@ def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
         color="#888888",
         linestyle=":",
         linewidth=1,
-        label="CPython Baseline (1.0×)",
+        label="Python Baseline (1.0×)",
     )
     axis.legend(frameon=True, facecolor="white", edgecolor="#cccccc", fontsize=9)
     axis.grid(axis="y", linestyle="--", alpha=0.3)
@@ -339,12 +390,7 @@ def plot_speedup(rows: list[dict[str, Any]], output: Path) -> None:
 
 def plot_synthetic(rows: list[dict[str, Any]], output: Path) -> None:
     figure, axis = plt.subplots(figsize=(8.5, 5.0))
-    synthetic = [
-        item
-        for item in rows
-        if item["benchmark_type"] == "synthetic"
-        and not item["case"].endswith("(end-to-end)")
-    ]
+    synthetic = [item for item in rows if item["benchmark_type"] == "synthetic"]
     for implementation in IMPLEMENTATIONS:
         series = sorted(
             (item for item in synthetic if item["implementation"] == implementation),
@@ -364,7 +410,7 @@ def plot_synthetic(rows: list[dict[str, Any]], output: Path) -> None:
     axis.set_xlabel("Synthetic graph nodes (V, log scale)", fontsize=10)
     axis.set_ylabel("Median execution time (ms, log scale)", fontsize=10)
     axis.set_title(
-        "Synthetic Graph Scaling: CPython vs. Native C++17",
+        "Synthetic Graph Scaling: Python vs. Cython",
         fontsize=11,
         fontweight="bold",
     )
@@ -421,9 +467,8 @@ def main() -> None:
     legs = [("A-B", a, b), ("B-C", b, c), ("C-D", c, d)]
 
     rows: list[dict[str, Any]] = []
-    with CythonDijkstra(BINARY_GRAPH, graph.node_count) as cpp:
+    with CythonDijkstra(BINARY_GRAPH) as cython:
         python_solver = PythonDijkstra(graph.adjacency)
-        networkx_solver = NetworkXDijkstra(graph.graph)
 
         for label, source, target in legs:
             source_index = source.node_index
@@ -433,6 +478,7 @@ def main() -> None:
                     python_solver.shortest_path(source_index, target_index)
                 ),
                 repetitions=REPETITIONS,
+                warmups=WARMUPS,
             )
             rows.append(
                 row(
@@ -444,87 +490,99 @@ def main() -> None:
                     source_index,
                     target_index,
                     timing,
-                    "python_perf_counter",
+                    "perf_counter_ns",
                 )
             )
 
-            timing = measure_cpp(cpp, source_index, target_index)
+            timing = measure_call(
+                lambda source_index=source_index, target_index=target_index: (
+                    cython.shortest_path(source_index, target_index)
+                ),
+                repetitions=REPETITIONS,
+                warmups=WARMUPS,
+            )
             rows.append(
                 row(
                     "real",
                     label,
-                    "cpp",
+                    "cython",
                     graph.node_count,
                     graph.edge_count,
                     source_index,
                     target_index,
                     timing,
-                    "cpp_internal_steady_clock",
+                    "perf_counter_ns",
                 )
             )
-            timing = measure_cpp_end_to_end(cpp, source_index, target_index)
+
+            python_result = python_solver.shortest_path(source_index, target_index)
+            if abs(python_result.distance - timing.result.distance) > 1e-6:
+                raise AssertionError(f"Python and Cython disagree on leg {label}")
+
+        add_overall_rows(
+            rows,
+            graph.node_count,
+            graph.edge_count,
+            sum(
+                float(
+                    next(
+                        item["distance_m"]
+                        for item in rows
+                        if item["benchmark_type"] == "real"
+                        and item["case"] == case
+                        and item["implementation"] == "python"
+                    )
+                )
+                for case in LEG_LABELS
+            ),
+        )
+
+        for implementation, solver in (
+            ("python", python_solver),
+            ("cython", cython),
+        ):
+            route, times = measure_workflow(solver, graph, locations)
             rows.append(
-                row(
-                    "real",
-                    f"{label} (end-to-end)",
-                    "cpp",
+                workflow_row(
+                    "Mandatory route (end-to-end)",
+                    implementation,
                     graph.node_count,
                     graph.edge_count,
-                    source_index,
-                    target_index,
-                    timing,
-                    "cpp_end_to_end",
+                    a.node_index,
+                    d.node_index,
+                    times,
+                    route.distance_m,
                 )
             )
-
-            # Independent correctness validation against NetworkX reference solver
-            nx_res = networkx_solver.shortest_path(source_index, target_index)
-            if abs(nx_res.distance - timing.result.distance) > 1e-6:
-                raise AssertionError(f"NetworkX reference disagrees on leg {label}")
-
-    add_overall_rows(
-        rows,
-        graph.node_count,
-        graph.edge_count,
-        sum(
-            float(
-                next(
-                    item["distance_m"]
-                    for item in rows
-                    if item["benchmark_type"] == "real"
-                    and item["case"] == case
-                    and item["implementation"] == "python"
-                )
-            )
-            for case in LEG_LABELS
-        ),
-    )
 
     with tempfile.TemporaryDirectory() as temporary_directory:
         for node_count in (1_000, 5_000, 10_000, 25_000):
             adjacency = synthetic_adjacency(node_count)
             binary_path = Path(temporary_directory) / f"synthetic_{node_count}.bin"
             write_binary_adjacency(adjacency, node_count, binary_path)
-            networkx_graph = networkx_from_adjacency(adjacency)
             python_solver = PythonDijkstra(adjacency)
-            networkx_solver = NetworkXDijkstra(networkx_graph)
             source = 0
             target = node_count - 1
             edge_count = sum(len(edges) for edges in adjacency.values())
-            with CythonDijkstra(binary_path, node_count) as cpp:
+            with CythonDijkstra(binary_path) as cython:
                 timing = measure_call(
                     lambda solver=python_solver, source=source, target=target: (
                         solver.shortest_path(source, target)
                     ),
                     repetitions=REPETITIONS,
+                    warmups=WARMUPS,
                 )
-                assert (
-                    abs(
-                        networkx_solver.shortest_path(source, target).distance
-                        - timing.result.distance
+                cython_timing = measure_call(
+                    lambda solver=cython, source=source, target=target: (
+                        solver.shortest_path(source, target)
+                    ),
+                    repetitions=REPETITIONS,
+                    warmups=WARMUPS,
+                )
+                if abs(timing.result.distance - cython_timing.result.distance) > 1e-6:
+                    raise AssertionError(
+                        f"Python and Cython disagree on synthetic graph n={node_count}"
                     )
-                    <= 1e-6
-                )
                 rows.append(
                     row(
                         "synthetic",
@@ -535,35 +593,20 @@ def main() -> None:
                         source,
                         target,
                         timing,
-                        "python_perf_counter",
+                        "perf_counter_ns",
                     )
                 )
-                timing = measure_cpp(cpp, source, target)
                 rows.append(
                     row(
                         "synthetic",
                         f"n={node_count}",
-                        "cpp",
+                        "cython",
                         node_count,
                         edge_count,
                         source,
                         target,
-                        timing,
-                        "cpp_internal_steady_clock",
-                    )
-                )
-                timing = measure_cpp_end_to_end(cpp, source, target)
-                rows.append(
-                    row(
-                        "synthetic",
-                        f"n={node_count} (end-to-end)",
-                        "cpp",
-                        node_count,
-                        edge_count,
-                        source,
-                        target,
-                        timing,
-                        "cpp_end_to_end",
+                        cython_timing,
+                        "perf_counter_ns",
                     )
                 )
 
@@ -583,9 +626,24 @@ def main() -> None:
 
     print("Benchmark results")
     for item in rows:
-        if item["benchmark_type"] == "real" and item["implementation"] == "cpp":
+        if item["benchmark_type"] == "real" and item["case"] in LEG_LABELS:
             print(
-                f"  {item['case']:8} C++ median {item['median_ms']:.6f} ms "
+                f"  {item['case']:3} {item['implementation']:6} "
+                f"median {item['median_ms']:.6f} ms "
+                f"| speedup {item['speedup_vs_python']:.2f}x"
+            )
+    for item in rows:
+        if item["benchmark_type"] == "real" and item["case"] == "overall":
+            print(
+                f"  overall {item['implementation']:6} "
+                f"median {item['median_ms']:.6f} ms "
+                f"| speedup {item['speedup_vs_python']:.2f}x"
+            )
+    for item in rows:
+        if item["benchmark_type"] == "workflow":
+            print(
+                f"  workflow {item['implementation']:6} "
+                f"median {item['median_ms']:.6f} ms "
                 f"| speedup {item['speedup_vs_python']:.2f}x"
             )
     print(f"Wrote {RESULTS / 'benchmark_results.csv'}")

@@ -21,10 +21,12 @@ dist/
 *.dll
 *.so
 *.dylib
+*.backup
+*.bak
+*_backup
 
-# Generated Cython C/C++ intermediates
+# Generated Cython C intermediates
 src/cython_dijkstra.c
-src/cython_dijkstra.cpp
 
 # Generated data caches and binary graphs
 data/cache/

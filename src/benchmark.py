@@ -6,8 +6,6 @@ import time
 from collections.abc import Callable
 from dataclasses import dataclass
 
-import networkx as nx
-
 from python_dijkstra import PathResult
 
 
@@ -27,9 +25,11 @@ class Timing:
 
 def measure_call(
     function: Callable[[], PathResult],
-    repetitions: int = 5,
+    repetitions: int = 10,
+    warmups: int = 3,
 ) -> Timing:
-    function()
+    for _ in range(warmups):
+        function()
     times: list[float] = []
     result = PathResult(0.0, [], None, None, False)
     for _ in range(repetitions):
@@ -70,14 +70,3 @@ def synthetic_adjacency(
         node: [(target, weight) for target, weight in targets.items()]
         for node, targets in edges.items()
     }
-
-
-def networkx_from_adjacency(
-    adjacency: dict[int, list[tuple[int, float]]],
-) -> nx.MultiDiGraph:
-    graph = nx.MultiDiGraph()
-    for source, edges in adjacency.items():
-        graph.add_node(source)
-        for target, weight in edges:
-            graph.add_edge(source, target, length=weight)
-    return graph

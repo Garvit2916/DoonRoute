@@ -1,52 +1,99 @@
 # Results
 
-## Verified road distances
+This page records the latest verified run of `scripts/run_analysis.py` and
+`scripts/run_benchmarks.py`. All numbers come from the included real Dehradun
+graph and the local development machine. They are not universal performance
+claims.
+
+## Dataset and snapping
 
 | Item | Value |
 |---|---:|
-| A to B | 14354.483 m |
-| B to C | 761.563 m |
-| C to D | 2899.096 m |
-| Mandatory A to B to C to D | 18015.141 m |
-| Unconstrained A to D | 14835.391 m |
-| Mandatory detour | 3179.751 m |
+| Graph nodes | 28,248 |
+| Directed edges | 64,912 |
+| Valid intersections | 17,804 |
+| A: Zenith Youth Hostel, Bidholi | snap 14.9 m |
+| B: Paltan Bazaar | snap 22.3 m |
+| C: Ghanta Ghar | snap 16.2 m |
+| D: Centrio Mall | snap 69.8 m |
+| E: Timezone Bowling | snap 85.3 m |
 
-The implementation stores distances in metres and reports road comparisons in kilometres.
+D and E snap to the same OSM node (`10196569536`) because Timezone is inside the
+Centrio/Unison complex. D -> E is therefore a 0 m road leg.
 
-The mandatory route is the shortest route satisfying all mandatory stops in order.
+## Verified route distances
 
-## Benchmark evidence
+| Route | Distance | Path nodes |
+|---|---:|---:|
+| A -> B | 14,354.483339 m | 135 |
+| B -> C | 761.562784 m | 15 |
+| C -> D | 2,899.095655 m | 28 |
+| **Mandatory A -> B -> C -> D** | **18,015.141778 m** | combined |
+| **Unconstrained A -> D** | **14,835.391088 m** | combined |
+| **Mandatory detour** | **3,179.750690 m** | difference |
 
-The primary benchmark compares pure Python running on CPython 3.11 with the native C++17 Dijkstra engine (linked via Cython) on the identical road graph.
+The Python and Cython implementations agree on each leg and on the combined
+route to within `1e-6 m` (in practice, exactly equal for the stored values).
 
-| Route Leg | CPython Median | Native C++ Median | Speedup vs CPython |
-| :--- | :---: | :---: | :---: |
-| A → B (14.354 km) | 6.494 ms | 0.513 ms | **12.65×** |
-| B → C (0.762 km) | 0.117 ms | 0.014 ms | **8.32×** |
-| C → D (2.899 km) | 3.535 ms | 0.303 ms | **11.67×** |
-| **Overall (Sum of Medians)** | **10.146 ms** | **0.831 ms** | **12.22×** |
+## Benchmark method
 
-*Note: The overall metric is the sum of the three route-leg medians. NetworkX is retained exclusively as an independent correctness reference.*
+- Same binary graph, source/target pairs, edge weights, and path reconstruction
+  for both implementations.
+- Three warmup runs per case.
+- Ten measured repetitions per case.
+- Reported timing is the median.
+- Speedup is `Python median / Cython median`.
+- Algorithm-only timing excludes graph loading and snapping.
+- The workflow benchmark includes snapping, route composition, JSON document
+  construction, and serialization.
 
-For each measured case, the harness records median execution time, minimum execution time, distance, visited nodes, and relaxations.
+## Algorithm-only results
 
-A separate synthetic scaling benchmark evaluates CPython and Native C++ on synthetic random graphs from 1,000 to 25,000 nodes.
+| Case | Python median | Cython median | Speedup |
+|---|---:|---:|---:|
+| A -> B | 19.549850 ms | 1.602750 ms | 12.20x |
+| B -> C | 0.236750 ms | 0.049550 ms | 4.78x |
+| C -> D | 11.232100 ms | 1.055950 ms | 10.64x |
+| Overall mandatory route | 31.018700 ms | 2.708250 ms | 11.45x |
 
-Generated benchmark and plot files:
+Visited and relaxation counts are identical between implementations for each
+case. Exact rows are in `results/benchmark_results.csv`.
 
-- results/benchmark_results.csv
-- results/execution_time.png
-- results/overall_performance.png
-- results/speedup.png
-- results/synthetic_scaling.png
+## End-to-end workflow
 
-## Reproducibility
+| Case | Python median | Cython median | Speedup |
+|---|---:|---:|---:|
+| Mandatory route, including Python-side workflow | 79.542100 ms | 38.838600 ms | 2.05x |
 
-Run the analysis and benchmark scripts from the project root:
+The workflow speedup is lower because snapping, route assembly, JSON document
+construction, and serialization are shared Python work.
+
+## Plots
+
+- `results/execution_time.png`: per-leg Python vs. Cython medians
+- `results/overall_performance.png`: overall mandatory-route comparison
+- `results/speedup.png`: per-leg and overall speedups
+- `results/synthetic_scaling.png`: synthetic graph scaling
+- `results/route_comparison.png`: mandatory vs. unconstrained distance
+
+## Frontend screenshots
+
+Initial map:
+
+![DoonRoute initial frontend](../results/frontend_initial.png)
+
+Calculated route:
+
+![DoonRoute calculated route](../results/frontend_route.png)
+
+## Reproduce
 
 ```powershell
-.venv/Scripts/python scripts/run_analysis.py
-.venv/Scripts/python scripts/run_benchmarks.py
+$env:PYTHONPATH = "src"
+python scripts/run_analysis.py
+python scripts/run_benchmarks.py
 ```
 
-The final implementation must report actual measurements and must not fabricate timing or speedup results.
+Both scripts rewrite their CSV outputs and plots. Re-running on different
+hardware will change absolute times and speedups; the route distances and
+agreement checks should remain stable.

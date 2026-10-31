@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import ast
 import csv
 import math
 import struct
@@ -9,11 +8,9 @@ from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
-import networkx as nx
-
+from graph_loader import EARTH_RADIUS_M, GraphData
+from intersection import SpatialIndex
 from python_dijkstra import PathResult
-
-EARTH_RADIUS_M = 6_371_008.8
 
 
 @dataclass(frozen=True)
@@ -30,93 +27,41 @@ class Location:
     snap_distance_m: float | None = None
 
 
-@dataclass
-class GraphData:
-    node_ids: list[int]
-    index_of: dict[int, int]
-    adjacency: dict[int, list[tuple[int, float]]]
-    graph: nx.MultiDiGraph
-    coordinates: list[tuple[float, float]]
-    edge_attributes: dict[tuple[int, int], list[dict[str, Any]]]
+@dataclass(frozen=True)
+class RouteLeg:
+    source_index: int
+    target_index: int
+    result: PathResult
+    edge_distances: list[dict[str, Any]]
+    road_names: list[str]
 
     @property
-    def node_count(self) -> int:
-        return len(self.node_ids)
-
-    @property
-    def edge_count(self) -> int:
-        return sum(len(edges) for edges in self.adjacency.values())
+    def distance_m(self) -> float:
+        return float(self.result.distance)
 
 
-def _text(value: Any) -> str:
-    if value is None:
-        return ""
-    if isinstance(value, str):
-        text = value.strip()
-        if text.startswith("[") and text.endswith("]"):
-            try:
-                parsed = ast.literal_eval(text)
-            except (ValueError, SyntaxError):
-                parsed = None
-            if isinstance(parsed, (list, tuple, set)):
-                return "; ".join(
-                    str(item).strip() for item in parsed if str(item).strip()
-                )
-        return text
-    if isinstance(value, (list, tuple, set)):
-        return "; ".join(str(item).strip() for item in value if str(item).strip())
-    return str(value).strip()
+@dataclass(frozen=True)
+class CombinedRoute:
+    waypoint_indices: list[int]
+    legs: list[RouteLeg]
+    path: list[int]
+    distance_m: float
 
 
-def load_graph(path: str | Path) -> GraphData:
-    source = nx.read_graphml(str(path), node_type=int, force_multigraph=True)
-    if not source.is_directed():
-        source = source.to_directed()
-
-    node_ids = [int(node) for node in source.nodes]
-    index_of = {node: index for index, node in enumerate(node_ids)}
-    coordinates = [
-        (float(source.nodes[node]["x"]), float(source.nodes[node]["y"]))
-        for node in node_ids
-    ]
-    adjacency: dict[int, list[tuple[int, float]]] = {
-        index: [] for index in range(len(node_ids))
-    }
-    indexed = nx.MultiDiGraph()
-
-    for source_node, target_node, key, data in source.edges(keys=True, data=True):
-        source_index = index_of[int(source_node)]
-        target_index = index_of[int(target_node)]
-        length = float(data["length"])
-        adjacency[source_index].append((target_index, length))
-        indexed.add_edge(
-            source_index,
-            target_index,
-            key=key,
-            length=length,
-            name=_text(data.get("name")),
-            highway=_text(data.get("highway")),
-        )
-
-    edge_attributes: dict[tuple[int, int], list[dict[str, Any]]] = {}
-    for source_node, target_node, key, data in indexed.edges(keys=True, data=True):
-        edge_attributes.setdefault((source_node, target_node), []).append(
-            {
-                "key": key,
-                "length": float(data["length"]),
-                "name": _text(data.get("name")),
-                "highway": _text(data.get("highway")),
-            }
-        )
-
-    return GraphData(
-        node_ids=node_ids,
-        index_of=index_of,
-        adjacency=adjacency,
-        graph=indexed,
-        coordinates=coordinates,
-        edge_attributes=edge_attributes,
+def haversine_m(
+    latitude_a: float, longitude_a: float, latitude_b: float, longitude_b: float
+) -> float:
+    latitude_a_rad = math.radians(latitude_a)
+    latitude_b_rad = math.radians(latitude_b)
+    delta_latitude = math.radians(latitude_b - latitude_a)
+    delta_longitude = math.radians(longitude_b - longitude_a)
+    value = (
+        math.sin(delta_latitude / 2) ** 2
+        + math.cos(latitude_a_rad)
+        * math.cos(latitude_b_rad)
+        * math.sin(delta_longitude / 2) ** 2
     )
+    return 2 * EARTH_RADIUS_M * math.asin(math.sqrt(value))
 
 
 def write_binary_adjacency(
@@ -160,37 +105,15 @@ def read_locations(path: str | Path) -> list[Location]:
     return locations
 
 
-def haversine_m(
-    latitude_a: float, longitude_a: float, latitude_b: float, longitude_b: float
-) -> float:
-    latitude_a_rad = math.radians(latitude_a)
-    latitude_b_rad = math.radians(latitude_b)
-    delta_latitude = math.radians(latitude_b - latitude_a)
-    delta_longitude = math.radians(longitude_b - longitude_a)
-    value = (
-        math.sin(delta_latitude / 2) ** 2
-        + math.cos(latitude_a_rad)
-        * math.cos(latitude_b_rad)
-        * math.sin(delta_longitude / 2) ** 2
-    )
-    return 2 * EARTH_RADIUS_M * math.asin(math.sqrt(value))
-
-
 def snap_locations(graph: GraphData, locations: list[Location]) -> list[Location]:
+    index = SpatialIndex(graph)
     snapped: list[Location] = []
     for location in locations:
-        best_index = 0
-        best_distance = math.inf
-        for index, (longitude, latitude) in enumerate(graph.coordinates):
-            distance = haversine_m(
-                location.latitude,
-                location.longitude,
-                latitude,
-                longitude,
+        nearest = index.nearest(location.latitude, location.longitude)
+        if nearest is None:
+            raise ValueError(
+                f"Could not snap location {location.id} to an intersection."
             )
-            if distance < best_distance:
-                best_distance = distance
-                best_index = index
         snapped.append(
             Location(
                 id=location.id,
@@ -200,9 +123,9 @@ def snap_locations(graph: GraphData, locations: list[Location]) -> list[Location
                 longitude=location.longitude,
                 source_url=location.source_url,
                 notes=location.notes,
-                node_index=best_index,
-                osm_node=graph.node_ids[best_index],
-                snap_distance_m=best_distance,
+                node_index=nearest.node_index,
+                osm_node=nearest.osm_node,
+                snap_distance_m=nearest.distance_m,
             )
         )
     return snapped
@@ -229,30 +152,81 @@ def path_distance(
     return total
 
 
-def road_names(graph: GraphData, path: list[int]) -> list[str]:
-    names: list[str] = []
+def edge_distances(graph: GraphData, path: list[int]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
     for source, target in pairwise(path):
         candidates = graph.edge_attributes.get((source, target), [])
         if not candidates:
-            continue
+            raise ValueError(f"Path edge {source} -> {target} is not in the graph.")
         edge = min(candidates, key=lambda item: item["length"])
+        records.append(
+            {
+                "from_node_index": source,
+                "to_node_index": target,
+                "from_osm_node": graph.node_ids[source],
+                "to_osm_node": graph.node_ids[target],
+                "distance_m": float(edge["length"]),
+                "name": edge["name"],
+                "highway": edge["highway"],
+            }
+        )
+    return records
+
+
+def road_names(graph: GraphData, path: list[int]) -> list[str]:
+    names: list[str] = []
+    for edge in edge_distances(graph, path):
         name = edge["name"] or f"Unnamed {edge['highway'] or 'road'}"
         if not names or names[-1] != name:
             names.append(name)
     return names
 
 
-class NetworkXDijkstra:
-    def __init__(self, graph: nx.MultiDiGraph) -> None:
-        self.graph = graph
+def route_leg(
+    solver: Any,
+    graph: GraphData,
+    source_index: int,
+    target_index: int,
+) -> RouteLeg:
+    result = solver.shortest_path(source_index, target_index)
+    if not result.reachable:
+        raise ValueError(f"No route from node {source_index} to {target_index}.")
+    if not result.path or result.path[0] != source_index:
+        raise ValueError("Solver returned a path with the wrong source.")
+    if result.path[-1] != target_index:
+        raise ValueError("Solver returned a path with the wrong target.")
+    reconstructed = path_distance(graph.adjacency, result.path)
+    if abs(reconstructed - result.distance) > 1e-6:
+        raise ValueError("Solver distance does not match its path.")
+    return RouteLeg(
+        source_index=source_index,
+        target_index=target_index,
+        result=result,
+        edge_distances=edge_distances(graph, result.path),
+        road_names=road_names(graph, result.path),
+    )
 
-    def shortest_path(self, source: int, target: int) -> PathResult:
-        if source == target:
-            return PathResult(0.0, [source], None, None, True)
-        try:
-            distance, path = nx.single_source_dijkstra(
-                self.graph, source, target, weight="length"
-            )
-        except nx.NetworkXNoPath:
-            return PathResult(math.inf, [], None, None, False)
-        return PathResult(float(distance), list(path), None, None, True)
+
+def route_waypoints(
+    solver: Any,
+    graph: GraphData,
+    waypoint_indices: list[int],
+) -> CombinedRoute:
+    if len(waypoint_indices) < 2:
+        raise ValueError("At least a start and destination are required.")
+    legs = [
+        route_leg(solver, graph, source, target)
+        for source, target in pairwise(waypoint_indices)
+    ]
+    combined_path: list[int] = []
+    for leg in legs:
+        if combined_path:
+            combined_path.extend(leg.result.path[1:])
+        else:
+            combined_path.extend(leg.result.path)
+    return CombinedRoute(
+        waypoint_indices=list(waypoint_indices),
+        legs=legs,
+        path=combined_path,
+        distance_m=sum(leg.distance_m for leg in legs),
+    )

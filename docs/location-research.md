@@ -1,7 +1,7 @@
 # DoonRoute — Location Research and Data Sources
 
 **Report date:** 2026-10-30  
-**Status:** Phase 1 report. Distances were recomputed with the custom Dijkstra implementation and cross-checked against NetworkX.
+**Status:** Phase 1 report. Distances were recomputed with the custom Python and Cython Dijkstra implementations.
 
 ## 1. Journey brief
 
@@ -104,7 +104,7 @@ The Uttarakhand PBF extract was therefore used. This is preferable for reproduci
 
 ## 5. Verified road distances
 
-These values were produced by the custom Dijkstra implementation and independently matched the NetworkX shortest-path result to within 0.001 m.
+These values were produced by the custom Python Dijkstra implementation and matched the independent Cython implementation to within 1e-6 m.
 
 | Leg | Distance | Nodes / edges | Main named roads |
 |---|---:|---:|---|
